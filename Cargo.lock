@@ -461,9 +461,9 @@ checksum = "112c678d4050afce233f4f2852bb2eb519230b3cf12f33585275537d7e41578d"
 
 [[package]]
 name = "json-cli"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f449037296e6241cbc2ad39e8cdcf57f29f1344632bb2363ed24ad6e1a126cd"
+checksum = "8e6f3709993ab8af9b71d6f38b1bb4b3a4d2f18dd79ab462ba4d4f977c5924a1"
 dependencies = [
  "anyhow",
  "async-trait",
