@@ -28,7 +28,7 @@ impl Codegen for IDLStructType {
 
         Ok(format!(
             "{{\n{}\n}}",
-            ctx.try_join_with_separator(struct_def.fields.clone(), "\n")?
+            ctx.try_join_with_separator(&struct_def.fields, "\n")?
                 .trim()
                 .indent()
         ))

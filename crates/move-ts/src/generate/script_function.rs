@@ -6,6 +6,54 @@ use crate::format::{gen_doc_string, indent};
 
 use super::{CodeText, Codegen, CodegenContext};
 
+pub struct ScriptFunctionPayloadStruct<'info>(&'info ScriptFunctionType<'info>);
+
+impl<'info> ScriptFunctionPayloadStruct<'info> {
+    fn doc_link(&self) -> String {
+        format!(
+            "{{@link {}Module.{}}}",
+            self.0.module.module_id.name(),
+            self.0.script.name
+        )
+    }
+
+    fn args_inline(&self, ctx: &CodegenContext) -> Result<CodeText> {
+        Ok(ctx
+            .try_join_with_separator(&self.0.script.args, "\n")?
+            .indent())
+    }
+
+    fn type_args_inline(&self) -> CodeText {
+        script_fn_type_args(&self.0.script.ty_args).indent()
+    }
+}
+
+impl<'info> Codegen for ScriptFunctionPayloadStruct<'info> {
+    fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
+        Ok(format!(
+            "/**\n * Payload arguments for {}.\n */\nexport type {}Payload = {{\n{}{}}};",
+            self.doc_link(),
+            self.0.type_name,
+            if self.0.script.args.is_empty() {
+                "".to_string()
+            } else {
+                format!(
+                    "{}\n",
+                    indent(&format!("args: {{\n{}\n}};\n", self.args_inline(ctx)?))
+                )
+            },
+            if self.0.script.ty_args.is_empty() {
+                "".to_string()
+            } else {
+                format!(
+                    "{}\n",
+                    indent(&format!("typeArgs: {{\n{}\n}};\n", self.type_args_inline()))
+                )
+            },
+        ))
+    }
+}
+
 pub struct ScriptFunctionType<'info> {
     type_name: String,
     module: &'info IDLModule,
@@ -42,50 +90,8 @@ impl<'info> ScriptFunctionType<'info> {
         }
     }
 
-    fn doc_link(&self) -> String {
-        format!(
-            "{{@link {}Module.{}}}",
-            self.module.module_id.name(),
-            self.script.name
-        )
-    }
-
-    fn args_inline(&self, ctx: &CodegenContext) -> Result<CodeText> {
-        Ok(ctx
-            .try_join_with_separator(self.script.args.clone(), "\n")?
-            .indent())
-    }
-
-    fn type_args_inline(&self) -> CodeText {
-        script_fn_type_args(&self.script.ty_args).indent()
-    }
-
-    fn payload_struct(&self, ctx: &CodegenContext) -> Result<String> {
-        Ok(format!(
-            "/**\n * Payload arguments for {}.\n */\nexport type {}Payload = {{\n{}{}}};",
-            self.doc_link(),
-            self.type_name,
-            if self.script.args.is_empty() {
-                "".to_string()
-            } else {
-                format!(
-                    "{}\n",
-                    indent(&format!("args: {{\n{}\n}};\n", self.args_inline(ctx)?))
-                )
-            },
-            if self.script.ty_args.is_empty() {
-                "".to_string()
-            } else {
-                format!(
-                    "{}\n",
-                    indent(&format!("typeArgs: {{\n{}\n}};\n", self.type_args_inline()))
-                )
-            },
-        ))
-    }
-
-    pub fn all_structs(&self, ctx: &CodegenContext) -> Result<String> {
-        self.payload_struct(ctx)
+    pub fn payload(&'info self) -> ScriptFunctionPayloadStruct<'info> {
+        ScriptFunctionPayloadStruct(self)
     }
 }
 

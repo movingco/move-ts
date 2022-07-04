@@ -35,17 +35,14 @@ impl<'info> CodegenContext<'info> {
         Ok(CodeText(value.generate_typescript(self)?))
     }
 
-    pub fn try_join_with_separator<T: IntoIterator>(
-        &self,
-        values: T,
-        separator: &str,
-    ) -> Result<CodeText>
+    pub fn try_join_with_separator<'a, I, T>(&self, values: I, separator: &str) -> Result<CodeText>
     where
-        T::Item: Codegen,
+        I: IntoIterator<Item = &'a T>,
+        T: Codegen + 'a,
     {
         Ok(values
             .into_iter()
-            .map(|v| self.generate(&v))
+            .map(|v| self.generate(v))
             .collect::<Result<Vec<_>>>()?
             .iter()
             .map(|v| v.to_string())
@@ -54,9 +51,10 @@ impl<'info> CodegenContext<'info> {
             .into())
     }
 
-    pub fn try_join<T: IntoIterator>(&self, values: T) -> Result<CodeText>
+    pub fn try_join<'a, I, T>(&self, values: I) -> Result<CodeText>
     where
-        T::Item: Codegen,
+        I: IntoIterator<Item = &'a T>,
+        T: Codegen + 'a,
     {
         self.try_join_with_separator(values, "\n\n")
     }

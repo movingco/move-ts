@@ -12,17 +12,15 @@ impl Codegen for IDLModule {
         let script_fns = self
             .functions
             .iter()
-            .map(|script_fn| ScriptFunctionType::new(self, script_fn));
+            .map(|script_fn| ScriptFunctionType::new(self, script_fn))
+            .collect::<Vec<_>>();
 
-        let function_types: &str = &script_fns
-            .clone()
-            .map(|f| f.all_structs(ctx))
-            .collect::<Result<Vec<_>>>()?
-            .join("\n\n");
+        let function_payloads =
+            ctx.try_join(&script_fns.iter().map(|f| f.payload()).collect::<Vec<_>>())?;
 
-        let function_bodies = ctx.try_join(script_fns)?.indent();
+        let function_bodies = ctx.try_join(&script_fns)?.indent();
 
-        let struct_types = ctx.try_join(self.structs.clone())?;
+        let struct_types = ctx.try_join(&self.structs)?;
 
         let idl_json = &serde_json::to_string(self)?;
 
@@ -97,7 +95,7 @@ export const {}Module = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as type
 "#,
             PRELUDE,
             struct_types,
-            function_types,
+            function_payloads,
             function_bodies,
             self.module_id.short_str_lossless(),
             self.module_id.address().to_hex_literal(),
