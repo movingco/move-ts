@@ -1,3 +1,5 @@
+use crate::format::gen_doc_string_opt;
+
 use super::{script_function::ScriptFunctionType, Codegen, CodegenContext};
 use anyhow::*;
 use move_idl::{IDLAbility, IDLModule, IDLScriptFunction};
@@ -90,7 +92,7 @@ const moduleImpl = {{
   ...builders
 }} as const;
 
-export const {}Module = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as typeof moduleImpl;
+{}export const {}Module = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as typeof moduleImpl;
 "#,
             PRELUDE,
             struct_types,
@@ -104,6 +106,7 @@ export const {}Module = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as type
             serde_json::to_string(&fn_map)?,
             serde_json::to_string(&resources)?,
             serde_json::to_string(&structs)?,
+            gen_doc_string_opt(&self.doc),
             name,
             self.module_id.address().to_hex_literal(),
             self.module_id.name(),

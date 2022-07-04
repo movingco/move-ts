@@ -1,3 +1,10 @@
+pub fn gen_doc_string_opt(string: &Option<String>) -> String {
+    string
+        .as_ref()
+        .map(|s| gen_doc_string(s))
+        .unwrap_or_default()
+}
+
 pub fn gen_doc_string(string: &str) -> String {
     let lines = string.lines();
     if lines.count() == 1 {
