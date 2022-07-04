@@ -637,9 +637,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24bf1afb9cd834053c043d9a3b5ca10ad153e1851faf9122442e0b26be07010f"
+checksum = "154deb1081a328a1fb02a6a2c21ae8cdaf5b838a854a0e07a6c0ce9c88b0d332"
 dependencies = [
  "anyhow",
  "errmapgen",
