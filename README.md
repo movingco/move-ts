@@ -9,13 +9,13 @@ _Documentation is currently extremely sparse but will be improved in the near fu
 Install the CLI using Cargo:
 
 ```bash
-cargo install move-idl-parse
+cargo install move-tsgen
 
 # On Sui
-cargo install move-idl-parse --features address20
+cargo install move-tsgen --features address20
 
 # On Aptos
-cargo install move-idl-parse --features address32
+cargo install move-tsgen --features address32
 ```
 
 ## Usage
@@ -23,10 +23,10 @@ cargo install move-idl-parse --features address32
 In a directory containing a `Move.toml`, run:
 
 ```
-move-idl-parse
+move-tsgen
 ```
 
-This will generate a series of JSON files in your `build/idls/` directory.
+This will generate a set of TypeScript files in your `build/ts/` directory.
 
 ## License
 

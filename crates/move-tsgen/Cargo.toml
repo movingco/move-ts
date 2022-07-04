@@ -1,0 +1,29 @@
+[package]
+name = "move-tsgen"
+version = "0.1.0"
+description = "CLI for move-ts."
+homepage = "https://moving.wtf"
+repository = "https://github.com/movingco/move-ts"
+authors = ["Ian Macalinao <ian@moving.wtf>"]
+license = "Apache-2.0"
+edition = "2021"
+keywords = ["move", "typescript", "codegen", "sui", "aptos"]
+
+[features]
+default = []
+address20 = ["move-idl/address20", "move-ts/address20"]
+address32 = ["move-idl/address32", "move-ts/address32"]
+
+[dependencies]
+anyhow = "1.0.42"
+async-trait = "0.1.56"
+clap = { version = "3.2", features = ["derive"] }
+json-cli = "0.1.0"
+move-idl = "0.1.0"
+serde_json = "1.0.79"
+tokio = { version = "1.18.2", features = ["full"] }
+move-ts = { version = "0.1.0", path = "../move-ts" }
+
+[[bin]]
+name = "move-tsgen"
+path = "./src/bin/move-tsgen.rs"

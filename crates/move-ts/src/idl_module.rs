@@ -30,8 +30,7 @@ impl Codegen for IDLModule {
         }
 
         let mut resources: BTreeMap<String, String> = BTreeMap::new();
-        for struct_info in ctx
-            .pkg
+        for struct_info in self
             .structs
             .iter()
             .filter(|s| s.abilities.contains(&IDLAbility::Key))
@@ -47,7 +46,7 @@ impl Codegen for IDLModule {
         }
 
         let mut structs: BTreeMap<String, String> = BTreeMap::new();
-        for struct_info in ctx.pkg.structs.iter() {
+        for struct_info in self.structs.iter() {
             structs.insert(
                 struct_info.name.clone(),
                 format!(
