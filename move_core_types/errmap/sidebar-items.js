@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ErrorContext",""],["ErrorDescription",""],["ErrorMapping",""]]});
+initSidebarItems({"struct":[["ErrorDescription",""],["ErrorMapping",""]]});

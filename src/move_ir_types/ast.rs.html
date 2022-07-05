@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-ir-types-0.1.5/src/ast.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>ast.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-ir-types-0.1.6/src/ast.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>ast.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../move_ir_types/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -1786,6 +1786,7 @@
 <span id="1781">1781</span>
 <span id="1782">1782</span>
 <span id="1783">1783</span>
+<span id="1784">1784</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright (c) The Diem Core Contributors</span>
 <span class="comment">// Copyright (c) The Move Contributors</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -2126,9 +2127,6 @@
     <span class="doccomment">/// The procedure can be invoked anywhere</span>
     <span class="doccomment">/// `public`</span>
     <span class="ident">Public</span>,
-    <span class="doccomment">/// The procedure can only be invoked from a script context</span>
-    <span class="doccomment">/// `public(script)`</span>
-    <span class="ident">Script</span>,
     <span class="doccomment">/// The procedure can be invoked internally as well as by modules in the friend list</span>
     <span class="doccomment">/// `public(friend)`</span>
     <span class="ident">Friend</span>,
@@ -2160,6 +2158,8 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Function_</span> {
     <span class="doccomment">/// The visibility</span>
     <span class="kw">pub</span> <span class="ident">visibility</span>: <span class="ident">FunctionVisibility</span>,
+    <span class="doccomment">/// Is entry function</span>
+    <span class="kw">pub</span> <span class="ident">is_entry</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// The type signature</span>
     <span class="kw">pub</span> <span class="ident">signature</span>: <span class="ident">FunctionSignature</span>,
     <span class="doccomment">/// List of nominal resources (declared in this module) that the procedure might access</span>
@@ -2734,6 +2734,7 @@
     <span class="doccomment">/// See the declaration of the struct `Function` for more details</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">visibility</span>: <span class="ident">FunctionVisibility</span>,
+        <span class="ident">is_entry</span>: <span class="ident">bool</span>,
         <span class="ident">formals</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">Var</span>, <span class="ident">Type</span>)<span class="op">&gt;</span>,
         <span class="ident">return_type</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Type</span><span class="op">&gt;</span>,
         <span class="ident">type_parameters</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">TypeVar</span>, <span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">Ability</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
@@ -2744,6 +2745,7 @@
         <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">FunctionSignature::new</span>(<span class="ident">formals</span>, <span class="ident">return_type</span>, <span class="ident">type_parameters</span>);
         <span class="ident">Function_</span> {
             <span class="ident">visibility</span>,
+            <span class="ident">is_entry</span>,
             <span class="ident">signature</span>,
             <span class="ident">acquires</span>,
             <span class="ident">specifications</span>,

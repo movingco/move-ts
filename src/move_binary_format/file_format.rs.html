@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-binary-format-0.1.5/src/file_format.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>file_format.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-binary-format-0.1.6/src/file_format.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>file_format.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../move_binary_format/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -2054,6 +2054,19 @@
 <span id="2049">2049</span>
 <span id="2050">2050</span>
 <span id="2051">2051</span>
+<span id="2052">2052</span>
+<span id="2053">2053</span>
+<span id="2054">2054</span>
+<span id="2055">2055</span>
+<span id="2056">2056</span>
+<span id="2057">2057</span>
+<span id="2058">2058</span>
+<span id="2059">2059</span>
+<span id="2060">2060</span>
+<span id="2061">2061</span>
+<span id="2062">2062</span>
+<span id="2063">2063</span>
+<span id="2064">2064</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright (c) The Diem Core Contributors</span>
 <span class="comment">// Copyright (c) The Move Contributors</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -2466,10 +2479,15 @@
     <span class="ident">Private</span> <span class="op">=</span> <span class="number">0x0</span>,
     <span class="doccomment">/// Accessible by any module or script outside of its declaring module.</span>
     <span class="ident">Public</span> <span class="op">=</span> <span class="number">0x1</span>,
-    <span class="doccomment">/// Accessible by any script or other `Script` functions from any module</span>
-    <span class="ident">Script</span> <span class="op">=</span> <span class="number">0x2</span>,
+    <span class="comment">// DEPRECATED for separate entry modifier</span>
+    <span class="comment">// Accessible by any script or other `Script` functions from any module</span>
+    <span class="comment">// Script = 0x2,</span>
     <span class="doccomment">/// Accessible by this module as well as modules declared in the friend list.</span>
     <span class="ident">Friend</span> <span class="op">=</span> <span class="number">0x3</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Visibility</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEPRECATED_SCRIPT</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0x2</span>;
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Visibility</span> {
@@ -2485,7 +2503,6 @@
         <span class="kw">match</span> <span class="ident">v</span> {
             <span class="ident">x</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">==</span> <span class="ident">Visibility::Private</span> <span class="kw">as</span> <span class="ident">u8</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Visibility::Private</span>),
             <span class="ident">x</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">==</span> <span class="ident">Visibility::Public</span> <span class="kw">as</span> <span class="ident">u8</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Visibility::Public</span>),
-            <span class="ident">x</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">==</span> <span class="ident">Visibility::Script</span> <span class="kw">as</span> <span class="ident">u8</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Visibility::Script</span>),
             <span class="ident">x</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">==</span> <span class="ident">Visibility::Friend</span> <span class="kw">as</span> <span class="ident">u8</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">Visibility::Friend</span>),
             <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(()),
         }
@@ -2502,6 +2519,8 @@
     <span class="kw">pub</span> <span class="ident">function</span>: <span class="ident">FunctionHandleIndex</span>,
     <span class="doccomment">/// The visibility of this function.</span>
     <span class="kw">pub</span> <span class="ident">visibility</span>: <span class="ident">Visibility</span>,
+    <span class="doccomment">/// Marker if the function is intended as an entry function. That is</span>
+    <span class="kw">pub</span> <span class="ident">is_entry</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// List of locally defined types (declared in this module) with the `Key` ability</span>
     <span class="doccomment">/// that the procedure might access, either through: BorrowGlobal, MoveFrom, or transitively</span>
     <span class="doccomment">/// through another procedure</span>
@@ -2527,8 +2546,14 @@
         <span class="self">self</span>.<span class="ident">code</span>.<span class="ident">is_none</span>()
     }
 
+    <span class="comment">// Deprecated public bit, deprecated in favor a the Visibility enum</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEPRECATED_PUBLIC_BIT</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0b01</span>;
+
     <span class="doccomment">/// A native function implemented in Rust.</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NATIVE</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0x2</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NATIVE</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0b10</span>;
+
+    <span class="doccomment">/// An entry function, intended to be used as an entry point to execution</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ENTRY</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">0b100</span>;
 }
 
 <span class="comment">// Signature</span>
@@ -4047,6 +4072,7 @@
     <span class="ident">m</span>.<span class="ident">function_defs</span>.<span class="ident">push</span>(<span class="ident">FunctionDefinition</span> {
         <span class="ident">function</span>: <span class="ident">FunctionHandleIndex</span>(<span class="number">0</span>),
         <span class="ident">visibility</span>: <span class="ident">Visibility::Private</span>,
+        <span class="ident">is_entry</span>: <span class="bool-val">false</span>,
         <span class="ident">acquires_global_resources</span>: <span class="macro">vec!</span>[],
         <span class="ident">code</span>: <span class="prelude-val">Some</span>(<span class="ident">CodeUnit</span> {
             <span class="ident">locals</span>: <span class="ident">SignatureIndex</span>(<span class="number">0</span>),

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-compiler-0.1.5/src/parser/syntax.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>syntax.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-compiler-0.1.6/src/parser/syntax.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>syntax.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../move_compiler/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -3087,6 +3087,67 @@
 <span id="3082">3082</span>
 <span id="3083">3083</span>
 <span id="3084">3084</span>
+<span id="3085">3085</span>
+<span id="3086">3086</span>
+<span id="3087">3087</span>
+<span id="3088">3088</span>
+<span id="3089">3089</span>
+<span id="3090">3090</span>
+<span id="3091">3091</span>
+<span id="3092">3092</span>
+<span id="3093">3093</span>
+<span id="3094">3094</span>
+<span id="3095">3095</span>
+<span id="3096">3096</span>
+<span id="3097">3097</span>
+<span id="3098">3098</span>
+<span id="3099">3099</span>
+<span id="3100">3100</span>
+<span id="3101">3101</span>
+<span id="3102">3102</span>
+<span id="3103">3103</span>
+<span id="3104">3104</span>
+<span id="3105">3105</span>
+<span id="3106">3106</span>
+<span id="3107">3107</span>
+<span id="3108">3108</span>
+<span id="3109">3109</span>
+<span id="3110">3110</span>
+<span id="3111">3111</span>
+<span id="3112">3112</span>
+<span id="3113">3113</span>
+<span id="3114">3114</span>
+<span id="3115">3115</span>
+<span id="3116">3116</span>
+<span id="3117">3117</span>
+<span id="3118">3118</span>
+<span id="3119">3119</span>
+<span id="3120">3120</span>
+<span id="3121">3121</span>
+<span id="3122">3122</span>
+<span id="3123">3123</span>
+<span id="3124">3124</span>
+<span id="3125">3125</span>
+<span id="3126">3126</span>
+<span id="3127">3127</span>
+<span id="3128">3128</span>
+<span id="3129">3129</span>
+<span id="3130">3130</span>
+<span id="3131">3131</span>
+<span id="3132">3132</span>
+<span id="3133">3133</span>
+<span id="3134">3134</span>
+<span id="3135">3135</span>
+<span id="3136">3136</span>
+<span id="3137">3137</span>
+<span id="3138">3138</span>
+<span id="3139">3139</span>
+<span id="3140">3140</span>
+<span id="3141">3141</span>
+<span id="3142">3142</span>
+<span id="3143">3143</span>
+<span id="3144">3144</span>
+<span id="3145">3145</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright (c) The Diem Core Contributors</span>
 <span class="comment">// Copyright (c) The Move Contributors</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -3513,6 +3574,7 @@
 
 <span class="kw">struct</span> <span class="ident">Modifiers</span> {
     <span class="ident">visibility</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Visibility</span><span class="op">&gt;</span>,
+    <span class="ident">entry</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Loc</span><span class="op">&gt;</span>,
     <span class="ident">native</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Loc</span><span class="op">&gt;</span>,
 }
 
@@ -3520,6 +3582,7 @@
     <span class="kw">fn</span> <span class="ident">empty</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">visibility</span>: <span class="prelude-val">None</span>,
+            <span class="ident">entry</span>: <span class="prelude-val">None</span>,
             <span class="ident">native</span>: <span class="prelude-val">None</span>,
         }
     }
@@ -3562,6 +3625,20 @@
                 }
                 <span class="ident">mods</span>.<span class="ident">native</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">loc</span>)
             }
+            <span class="ident">Tok::Identifier</span> <span class="kw">if</span> <span class="ident">context</span>.<span class="ident">tokens</span>.<span class="ident">content</span>() <span class="op">==</span> <span class="ident">ENTRY_MODIFIER</span> =&gt; {
+                <span class="kw">let</span> <span class="ident">loc</span> <span class="op">=</span> <span class="ident">current_token_loc</span>(<span class="ident">context</span>.<span class="ident">tokens</span>);
+                <span class="ident">context</span>.<span class="ident">tokens</span>.<span class="ident">advance</span>()<span class="question-mark">?</span>;
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">prev_loc</span>) <span class="op">=</span> <span class="ident">mods</span>.<span class="ident">entry</span> {
+                    <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;Duplicate &#39;{}&#39; modifier&quot;</span>, <span class="ident">ENTRY_MODIFIER</span>);
+                    <span class="kw">let</span> <span class="ident">prev_msg</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;&#39;{}&#39; modifier previously given here&quot;</span>, <span class="ident">ENTRY_MODIFIER</span>);
+                    <span class="ident">context</span>.<span class="ident">env</span>.<span class="ident">add_diag</span>(<span class="macro">diag!</span>(
+                        <span class="ident">Declarations::DuplicateItem</span>,
+                        (<span class="ident">loc</span>, <span class="ident">msg</span>),
+                        (<span class="ident">prev_loc</span>, <span class="ident">prev_msg</span>)
+                    ))
+                }
+                <span class="ident">mods</span>.<span class="ident">entry</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">loc</span>)
+            }
             <span class="kw">_</span> =&gt; <span class="kw">break</span>,
         }
     }
@@ -3592,10 +3669,8 @@
         <span class="prelude-val">Some</span>(<span class="ident">Tok::Friend</span>) =&gt; <span class="ident">Visibility::Friend</span>(<span class="ident">loc</span>),
         <span class="kw">_</span> =&gt; {
             <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(
-                <span class="string">&quot;Invalid visibility modifier. Consider removing it or using one of &#39;{}&#39;, &#39;{}&#39;, or \
-                 &#39;{}&#39;&quot;</span>,
+                <span class="string">&quot;Invalid visibility modifier. Consider removing it or using &#39;{}&#39; or &#39;{}&#39;&quot;</span>,
                 <span class="ident">Visibility::PUBLIC</span>,
-                <span class="ident">Visibility::SCRIPT</span>,
                 <span class="ident">Visibility::FRIEND</span>
             );
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">diag!</span>(<span class="ident">Syntax::UnexpectedToken</span>, (<span class="ident">loc</span>, <span class="ident">msg</span>)));
@@ -4864,7 +4939,27 @@
     <span class="ident">modifiers</span>: <span class="ident">Modifiers</span>,
     <span class="ident">context</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Function</span>, <span class="ident">Diagnostic</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">Modifiers</span> { <span class="ident">visibility</span>, <span class="ident">native</span> } <span class="op">=</span> <span class="ident">modifiers</span>;
+    <span class="kw">let</span> <span class="ident">Modifiers</span> {
+        <span class="ident">visibility</span>,
+        <span class="kw-2">mut</span> <span class="ident">entry</span>,
+        <span class="ident">native</span>,
+    } <span class="op">=</span> <span class="ident">modifiers</span>;
+
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">Visibility::Script</span>(<span class="ident">vloc</span>)) <span class="op">=</span> <span class="ident">visibility</span> {
+        <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(
+            <span class="string">&quot;&#39;{script}&#39; is deprecated in favor of the &#39;{entry}&#39; modifier. \
+            Replace with &#39;{public} {entry}&#39;&quot;</span>,
+            <span class="ident">script</span> <span class="op">=</span> <span class="ident">Visibility::SCRIPT</span>,
+            <span class="ident">public</span> <span class="op">=</span> <span class="ident">Visibility::PUBLIC</span>,
+            <span class="ident">entry</span> <span class="op">=</span> <span class="ident">ENTRY_MODIFIER</span>,
+        );
+        <span class="ident">context</span>
+            .<span class="ident">env</span>
+            .<span class="ident">add_diag</span>(<span class="macro">diag!</span>(<span class="ident">Uncategorized::DeprecatedWillBeRemoved</span>, (<span class="ident">vloc</span>, <span class="ident">msg</span>,)));
+        <span class="kw">if</span> <span class="ident">entry</span>.<span class="ident">is_none</span>() {
+            <span class="ident">entry</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vloc</span>)
+        }
+    }
 
     <span class="comment">// &quot;fun&quot; &lt;FunctionDefName&gt;</span>
     <span class="ident">consume_token</span>(<span class="ident">context</span>.<span class="ident">tokens</span>, <span class="ident">Tok::Fun</span>)<span class="question-mark">?</span>;
@@ -4937,6 +5032,7 @@
         <span class="ident">attributes</span>,
         <span class="ident">loc</span>,
         <span class="ident">visibility</span>: <span class="ident">visibility</span>.<span class="ident">unwrap_or</span>(<span class="ident">Visibility::Internal</span>),
+        <span class="ident">entry</span>,
         <span class="ident">signature</span>,
         <span class="ident">acquires</span>,
         <span class="ident">name</span>,
@@ -4969,7 +5065,11 @@
     <span class="ident">modifiers</span>: <span class="ident">Modifiers</span>,
     <span class="ident">context</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructDefinition</span>, <span class="ident">Diagnostic</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">Modifiers</span> { <span class="ident">visibility</span>, <span class="ident">native</span> } <span class="op">=</span> <span class="ident">modifiers</span>;
+    <span class="kw">let</span> <span class="ident">Modifiers</span> {
+        <span class="ident">visibility</span>,
+        <span class="ident">entry</span>,
+        <span class="ident">native</span>,
+    } <span class="op">=</span> <span class="ident">modifiers</span>;
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">vis</span>) <span class="op">=</span> <span class="ident">visibility</span> {
         <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(
             <span class="string">&quot;Invalid struct declaration. Structs cannot have visibility modifiers as they are \
@@ -4979,6 +5079,15 @@
         <span class="ident">context</span>
             .<span class="ident">env</span>
             .<span class="ident">add_diag</span>(<span class="macro">diag!</span>(<span class="ident">Syntax::InvalidModifier</span>, (<span class="ident">vis</span>.<span class="ident">loc</span>().<span class="ident">unwrap</span>(), <span class="ident">msg</span>)));
+    }
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">loc</span>) <span class="op">=</span> <span class="ident">entry</span> {
+        <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(
+            <span class="string">&quot;Invalid constant declaration. &#39;{}&#39; is used only on functions&quot;</span>,
+            <span class="ident">ENTRY_MODIFIER</span>
+        );
+        <span class="ident">context</span>
+            .<span class="ident">env</span>
+            .<span class="ident">add_diag</span>(<span class="macro">diag!</span>(<span class="ident">Syntax::InvalidModifier</span>, (<span class="ident">loc</span>, <span class="ident">msg</span>)));
     }
 
     <span class="ident">consume_token</span>(<span class="ident">context</span>.<span class="ident">tokens</span>, <span class="ident">Tok::Struct</span>)<span class="question-mark">?</span>;
@@ -5068,13 +5177,26 @@
     <span class="ident">modifiers</span>: <span class="ident">Modifiers</span>,
     <span class="ident">context</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Constant</span>, <span class="ident">Diagnostic</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">Modifiers</span> { <span class="ident">visibility</span>, <span class="ident">native</span> } <span class="op">=</span> <span class="ident">modifiers</span>;
+    <span class="kw">let</span> <span class="ident">Modifiers</span> {
+        <span class="ident">visibility</span>,
+        <span class="ident">entry</span>,
+        <span class="ident">native</span>,
+    } <span class="op">=</span> <span class="ident">modifiers</span>;
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">vis</span>) <span class="op">=</span> <span class="ident">visibility</span> {
         <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Invalid constant declaration. Constants cannot have visibility modifiers as \
                    they are always internal&quot;</span>;
         <span class="ident">context</span>
             .<span class="ident">env</span>
             .<span class="ident">add_diag</span>(<span class="macro">diag!</span>(<span class="ident">Syntax::InvalidModifier</span>, (<span class="ident">vis</span>.<span class="ident">loc</span>().<span class="ident">unwrap</span>(), <span class="ident">msg</span>)));
+    }
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">loc</span>) <span class="op">=</span> <span class="ident">entry</span> {
+        <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(
+            <span class="string">&quot;Invalid constant declaration. &#39;{}&#39; is used only on functions&quot;</span>,
+            <span class="ident">ENTRY_MODIFIER</span>
+        );
+        <span class="ident">context</span>
+            .<span class="ident">env</span>
+            .<span class="ident">add_diag</span>(<span class="macro">diag!</span>(<span class="ident">Syntax::InvalidModifier</span>, (<span class="ident">loc</span>, <span class="ident">msg</span>)));
     }
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">loc</span>) <span class="op">=</span> <span class="ident">native</span> {
         <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Invalid constant declaration. &#39;native&#39; constants are not supported&quot;</span>;
