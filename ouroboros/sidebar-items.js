@@ -1,0 +1,1 @@
+initSidebarItems({"attr":[["self_referencing","This macro is used to turn a regular struct into a self-referencing one. An example:"]]});

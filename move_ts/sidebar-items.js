@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["format",""],["idl_module",""],["idl_struct",""],["idl_type",""],["script_function",""]],"struct":[["CodeText",""],["CodegenContext",""]],"trait":[["Codegen","Generate TypeScript code for a value."]]});

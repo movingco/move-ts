@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Symbol","Represents a string that has been cached."]]});

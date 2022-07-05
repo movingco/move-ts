@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["static_address","Parses a string literal account address into a byte array account address."]]});

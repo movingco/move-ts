@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TreeBuilder","A builder for a tree of `StringItem`s"]]});

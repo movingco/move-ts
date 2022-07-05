@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["generate_idl_errors_for_module","Generates the error map for the module."],["generate_idl_for_module","Compute the IDLs of all script functions in a module."],["generate_idl_structs_for_module",""]]});

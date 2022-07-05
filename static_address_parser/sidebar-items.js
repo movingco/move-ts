@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_static_address","Parses a static address literal to an [AccountAddress]."],["parse_static_address_as_array","Parses a static address literal to a byte array."]]});

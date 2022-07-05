@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MappedRef",""],["MappedRefMut",""],["Ref",""],["RefMut",""]]});

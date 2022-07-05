@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["gen_function","Generates the IDL for a function."],["gen_module","Generates the IDL for a module."],["gen_struct","Generates the IDL for a struct."]]});

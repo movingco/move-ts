@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ResolutionGraph","A `ResolutionGraph` comes in two flavors:"],["ResolutionPackage",""],["ResolvingNamedAddress",""]],"type":[["GraphIndex",""],["Renaming",""],["ResolvedGraph",""],["ResolvedPackage",""],["ResolvedTable",""]]});

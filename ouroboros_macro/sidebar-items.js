@@ -1,0 +1,1 @@
+initSidebarItems({"attr":[["self_referencing",""]]});
