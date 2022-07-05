@@ -33,6 +33,16 @@ impl<'info> CodegenContext<'info> {
         CodegenContext { pkg }
     }
 
+    /// Generates an `index.ts` file for the given package.
+    pub fn generate_index(&self, module_names: &[String]) -> Result<CodeText> {
+        Ok(module_names
+            .iter()
+            .map(|name| format!("export * as {}Module from \"./{}.js\";", name, name))
+            .collect::<Vec<_>>()
+            .join("\n")
+            .into())
+    }
+
     pub fn generate<T: Codegen>(&self, value: &T) -> Result<CodeText> {
         Ok(CodeText(value.generate_typescript(self)?))
     }
