@@ -7,7 +7,14 @@ fn generate_struct_fields(s: &IDLStruct, ctx: &CodegenContext) -> Result<CodeTex
     Ok(s.fields
         .iter()
         .map(|field| {
-            let ts = &generate_idl_type_with_type_args(&field.ty, ctx, &s.type_params)?;
+            let ts = &generate_idl_type_with_type_args(
+                &field.ty,
+                ctx,
+                &s.type_params
+                    .iter()
+                    .map(|t| format!("_{}", t))
+                    .collect::<Vec<_>>(),
+            )?;
             Ok(format!(
                 "{}{}: {};",
                 field
@@ -35,7 +42,7 @@ impl Codegen for IDLStruct {
                 "<{}>",
                 self.type_params
                     .iter()
-                    .map(|p| format!("{} = unknown", p))
+                    .map(|p| format!("_{} = unknown", p))
                     .collect::<Vec<_>>()
                     .join(", ")
             )
