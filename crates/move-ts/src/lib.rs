@@ -28,19 +28,22 @@ pub struct CodegenContext<'info> {
     pkg: &'info IDLPackage,
 }
 
+/// Generates an `index.ts` file for the given module names.
+pub fn generate_index<'a, I>(module_names: I) -> Result<CodeText>
+where
+    I: IntoIterator<Item = &'a String>,
+{
+    Ok(module_names
+        .into_iter()
+        .map(|name| format!("export * as {}Module from \"./{}.js\";", name, name))
+        .collect::<Vec<_>>()
+        .join("\n")
+        .into())
+}
+
 impl<'info> CodegenContext<'info> {
     pub fn new(pkg: &'info IDLPackage) -> Self {
         CodegenContext { pkg }
-    }
-
-    /// Generates an `index.ts` file for the given package.
-    pub fn generate_index(&self, module_names: &[String]) -> Result<CodeText> {
-        Ok(module_names
-            .iter()
-            .map(|name| format!("export * as {}Module from \"./{}.js\";", name, name))
-            .collect::<Vec<_>>()
-            .join("\n")
-            .into())
     }
 
     pub fn generate<T: Codegen>(&self, value: &T) -> Result<CodeText> {

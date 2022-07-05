@@ -4,7 +4,7 @@ use std::path::PathBuf;
 use anyhow::*;
 use json_cli::{CliTool, CliTypedResult};
 use move_idl::IDLBuilder;
-use move_ts::CodegenContext;
+use move_ts::{generate_index, CodegenContext};
 
 /// Parses a Move workspace into a set of IDLs.
 #[derive(clap::Parser)]
@@ -46,7 +46,7 @@ impl CliTool<()> for MoveTSGenTool {
 
         std::fs::write(
             self.out_dir.join("index").with_extension("ts"),
-            ctx.generate_index(
+            generate_index(
                 &relevant_modules
                     .into_iter()
                     .map(|(name, _)| name)
