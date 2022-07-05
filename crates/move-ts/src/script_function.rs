@@ -72,7 +72,7 @@ impl Codegen for IDLArgument {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
         let doc = gen_doc_string(&format!("IDL type: `{:?}`", &self.ty));
         Ok(format!(
-            "{}\n{}: {};",
+            "{}{}: {};",
             doc,
             self.name,
             &self.ty.generate_typescript(ctx)?
