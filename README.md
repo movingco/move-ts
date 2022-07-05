@@ -30,4 +30,4 @@ This will generate a set of TypeScript files in your `build/ts/` directory.
 
 ## License
 
-Move IDL is licensed under the Apache License, Version 2.0.
+Move TS is licensed under the Apache License, Version 2.0.
