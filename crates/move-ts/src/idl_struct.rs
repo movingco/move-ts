@@ -13,7 +13,7 @@ fn generate_struct_fields(s: &IDLStruct, ctx: &CodegenContext) -> Result<CodeTex
                 field
                     .doc
                     .as_ref()
-                    .map(|doc| format!("\n{}\n", gen_doc_string(doc)))
+                    .map(|doc| format!("\n{}", gen_doc_string(doc)))
                     .unwrap_or_default(),
                 field.name,
                 ts
@@ -47,7 +47,7 @@ impl Codegen for IDLStruct {
 }};"#,
             self.doc
                 .as_ref()
-                .map(|d| format!("{}\n", gen_doc_string(d)))
+                .map(|d| gen_doc_string(d))
                 .unwrap_or_default(),
             self.name,
             generics,

@@ -12,7 +12,7 @@ fn generate_field_with_type_args(
         "{}{}: {};",
         ty.doc
             .as_ref()
-            .map(|doc| format!("\n{}\n", gen_doc_string(doc)))
+            .map(|doc| format!("\n{}", gen_doc_string(doc)))
             .unwrap_or_default(),
         ty.name,
         generate_idl_type_with_type_args(&ty.ty, ctx, type_args)?
@@ -69,7 +69,7 @@ pub(crate) fn generate_idl_type_with_type_args(
                 .collect::<Result<Vec<_>>>()?;
             generate_struct_with_type_args(inner, ctx, &next_type_args)?
         }
-        IDLType::TypeParameter(v) => {
+        IDLType::TypeParam(v) => {
             let result = type_args.get(*v as usize);
             match result {
                 Some(v) => v.clone(),

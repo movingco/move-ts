@@ -144,7 +144,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
             self.script
                 .doc
                 .as_ref()
-                .map(|doc| format!("{}\n", gen_doc_string(doc)))
+                .map(|doc| gen_doc_string(doc))
                 .unwrap_or_default(),
             self.script.name,
             vec![
