@@ -132,7 +132,7 @@ const moduleImpl = {{
   ...entrypoints
 }} as const;
 
-{}export const {}Module = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as typeof moduleImpl;
+{}export const moduleDefinition = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as typeof moduleImpl;
 "#,
             gen_doc_string_opt(&self.doc.as_ref().map(|s| format!("{}\n\n@module", s))),
             PRELUDE,
@@ -152,7 +152,6 @@ const moduleImpl = {{
             gen_doc_string_opt(&self.doc),
             name,
             self.module_id.address().to_hex_literal(),
-            self.module_id.name(),
         );
 
         Ok(ts)
