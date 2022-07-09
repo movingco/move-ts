@@ -319,9 +319,9 @@ dependencies = [
 
 [[package]]
 name = "errmapgen"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f46c7fd7037a0e9d47ee6709edd01d5878eff300962ee0489ae539687f676d5b"
+checksum = "c7ab4268a6f0f3dc71830a8312faf26495809bc59e367aeb47515e74af9c6d78"
 dependencies = [
  "anyhow",
  "errmap",
@@ -637,9 +637,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b59d734ec8e6f8cd26c9f45acbaef8030964d20b10bfc031da7445e539fd46b9"
+checksum = "27c69f923e9b1b01a1ff05fd0e6b42f8b043d7c53bd4d25590df878f4f0332ac"
 dependencies = [
  "anyhow",
  "errmapgen",
@@ -656,9 +656,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl-types"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5a5fac4acb2c4eee189a57d7a0c1d05b0cd871a899edb9dc86524f035930a11"
+checksum = "c7b26be2c82a17a66b94c97f81ff1ac4a33895610074f95e4e604f12eef1d798"
 dependencies = [
  "errmap",
  "module-id",
