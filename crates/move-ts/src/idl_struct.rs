@@ -56,7 +56,7 @@ impl Codegen for IDLStruct {
                 .as_ref()
                 .map(|d| gen_doc_string(d))
                 .unwrap_or_default(),
-            self.name,
+            self.name.name,
             generics,
             generate_struct_fields(self, ctx)?.indent()
         ))

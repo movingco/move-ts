@@ -60,11 +60,7 @@ impl Codegen for IDLModule {
         {
             resources.insert(
                 struct_info.name.name.to_string(),
-                format!(
-                    "{}::{}",
-                    self.module_id.short_str_lossless(),
-                    struct_info.name.clone()
-                ),
+                struct_info.name.to_string(),
             );
         }
 
@@ -72,11 +68,7 @@ impl Codegen for IDLModule {
         for struct_info in self.structs.iter() {
             structs.insert(
                 struct_info.name.name.to_string(),
-                format!(
-                    "{}::{}",
-                    self.module_id.short_str_lossless(),
-                    struct_info.name.clone()
-                ),
+                struct_info.name.to_string(),
             );
         }
 
