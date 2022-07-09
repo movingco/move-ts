@@ -52,10 +52,10 @@ pub(crate) fn generate_idl_type_with_type_args(
         IDLType::U8 => "number".to_string(),
         IDLType::U64 => "p.U64".to_string(),
         IDLType::U128 => "p.U128".to_string(),
-        IDLType::Address => "p.HexStringArg".to_string(),
-        IDLType::Signer => "p.HexStringArg".to_string(),
+        IDLType::Address => "p.RawAddress".to_string(),
+        IDLType::Signer => "p.RawSigner".to_string(),
         IDLType::Vector(inner) => match *inner.clone() {
-            IDLType::U8 => "p.HexStringArg".to_string(),
+            IDLType::U8 => "p.ByteString".to_string(),
             inner => format!(
                 "ReadonlyArray<{}>",
                 generate_idl_type_with_type_args(&inner, ctx, type_args)?
