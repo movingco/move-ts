@@ -27,8 +27,18 @@ impl Codegen for IDLModule {
             .map(|script_fn| ScriptFunctionType::new(self, script_fn))
             .collect::<Vec<_>>();
 
-        let function_payloads =
-            ctx.try_join(&script_fns.iter().map(|f| f.payload()).collect::<Vec<_>>())?;
+        let function_payloads = ctx.try_join(
+            &script_fns
+                .iter()
+                .filter_map(|f| {
+                    if f.should_render_payload_struct() {
+                        Some(f.payload())
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Vec<_>>(),
+        )?;
 
         let function_bodies = ctx.try_join(&script_fns)?.indent();
 
@@ -142,8 +152,8 @@ const moduleImpl = {{
             serde_json::to_string_pretty(&structs)?,
             self.module_id.short_str_lossless(),
             gen_doc_string_opt(&self.doc),
-            name,
             self.module_id.address().to_hex_literal(),
+            name,
         );
 
         Ok(ts)

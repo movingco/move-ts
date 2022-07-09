@@ -93,6 +93,14 @@ impl<'info> ScriptFunctionType<'info> {
     pub fn payload(&'info self) -> ScriptFunctionPayloadStruct<'info> {
         ScriptFunctionPayloadStruct(self)
     }
+
+    pub fn payload_type_name(&'info self) -> String {
+        format!("{}Payload", self.type_name)
+    }
+
+    pub fn should_render_payload_struct(&'info self) -> bool {
+        !(self.script.args.is_empty() && self.script.ty_args.is_empty())
+    }
 }
 
 impl<'info> Codegen for ScriptFunctionType<'info> {
@@ -135,7 +143,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
         );
 
         Ok(format!(
-            r#"{}{}: ({{ {} }}: {}Payload): p.ScriptFunctionPayload => ({{
+            r#"{}{}: ({}): p.ScriptFunctionPayload => ({{
   type: "script_function_payload",
   function: "{}",
   type_arguments: {},
@@ -147,23 +155,30 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
                 .map(|doc| gen_doc_string(doc))
                 .unwrap_or_default(),
             self.script.name,
-            vec![
-                if self.script.args.is_empty() {
-                    None
-                } else {
-                    Some("args")
-                },
-                if self.script.ty_args.is_empty() {
-                    None
-                } else {
-                    Some("typeArgs")
-                },
-            ]
-            .into_iter()
-            .flatten()
-            .collect::<Vec<_>>()
-            .join(", "),
-            self.type_name,
+            if self.should_render_payload_struct() {
+                format!(
+                    "{{ {} }}: {}",
+                    vec![
+                        if self.script.args.is_empty() {
+                            None
+                        } else {
+                            Some("args")
+                        },
+                        if self.script.ty_args.is_empty() {
+                            None
+                        } else {
+                            Some("typeArgs")
+                        },
+                    ]
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<_>>()
+                    .join(", "),
+                    self.payload_type_name()
+                )
+            } else {
+                "".to_string()
+            },
             &function,
             &type_arguments,
             &arguments
