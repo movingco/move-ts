@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_module_id","Parses a module ID."]],"struct":[["StructTagData","Wrapper around [StructTag] which is serialized as a string."]]});

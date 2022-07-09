@@ -131,6 +131,7 @@ sourcesIndex["static_address"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["static_address_parser"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["static_assertions"] = {"name":"","files":["assert_cfg.rs","assert_eq_align.rs","assert_eq_size.rs","assert_fields.rs","assert_impl.rs","assert_obj_safe.rs","assert_trait.rs","assert_type.rs","const_assert.rs","lib.rs"]};
 sourcesIndex["strsim"] = {"name":"","files":["lib.rs"]};
+sourcesIndex["struct_tag"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["syn"] = {"name":"","dirs":[{"name":"gen","files":["clone.rs","gen_helper.rs","visit_mut.rs"]}],"files":["attr.rs","await.rs","bigint.rs","buffer.rs","custom_keyword.rs","custom_punctuation.rs","data.rs","derive.rs","discouraged.rs","error.rs","export.rs","expr.rs","ext.rs","file.rs","generics.rs","group.rs","ident.rs","item.rs","lib.rs","lifetime.rs","lit.rs","lookahead.rs","mac.rs","macros.rs","op.rs","parse.rs","parse_macro_input.rs","parse_quote.rs","pat.rs","path.rs","print.rs","punctuated.rs","reserved.rs","sealed.rs","span.rs","spanned.rs","stmt.rs","thread.rs","token.rs","ty.rs","verbatim.rs","whitespace.rs"]};
 sourcesIndex["tempfile"] = {"name":"","dirs":[{"name":"file","dirs":[{"name":"imp","files":["mod.rs","unix.rs"]}],"files":["mod.rs"]}],"files":["dir.rs","error.rs","lib.rs","spooled.rs","util.rs"]};
 sourcesIndex["termcolor"] = {"name":"","files":["lib.rs"]};
