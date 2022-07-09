@@ -19,7 +19,7 @@ anyhow = "1.0.42"
 async-trait = "0.1.56"
 clap = { version = "3.2", features = ["derive"] }
 json-cli = "0.1.0"
-move-idl = "0.1.0"
+move-idl = "0.2.0"
 serde_json = "1.0.79"
 tokio = { version = "1.18.2", features = ["full"] }
 move-ts = { version = "0.1.0", path = "../move-ts" }

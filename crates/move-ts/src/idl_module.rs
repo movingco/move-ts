@@ -11,10 +11,10 @@ const PRELUDE: &str = "import * as p from \"@movingco/prelude\";\n";
 #[derive(Serialize)]
 struct ErrorInfo {
     /// Error code.
-    pub code: u64,
+    code: u64,
     /// Error.
     #[serde(flatten)]
-    pub error: IDLError,
+    error: IDLError,
 }
 
 impl Codegen for IDLModule {
@@ -59,7 +59,7 @@ impl Codegen for IDLModule {
             .filter(|s| s.abilities.contains(&IDLAbility::Key))
         {
             resources.insert(
-                struct_info.name.clone(),
+                struct_info.name.name.to_string(),
                 format!(
                     "{}::{}",
                     self.module_id.short_str_lossless(),
@@ -71,7 +71,7 @@ impl Codegen for IDLModule {
         let mut structs: BTreeMap<String, String> = BTreeMap::new();
         for struct_info in self.structs.iter() {
             structs.insert(
-                struct_info.name.clone(),
+                struct_info.name.name.to_string(),
                 format!(
                     "{}::{}",
                     self.module_id.short_str_lossless(),

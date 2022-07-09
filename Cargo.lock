@@ -319,9 +319,9 @@ dependencies = [
 
 [[package]]
 name = "errmapgen"
-version = "0.1.4"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc1bf9d34a5fc27c685ea7b860d20bd460179de30715a6bea95950d04c34652f"
+checksum = "f46c7fd7037a0e9d47ee6709edd01d5878eff300962ee0489ae539687f676d5b"
 dependencies = [
  "anyhow",
  "errmap",
@@ -375,9 +375,9 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
-version = "0.12.1"
+version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db0d4cf898abf0081f964436dc980e96670a0f36863e4b83aaacdb65c9d7ccc3"
+checksum = "607c8a29735385251a339424dd462993c0fed8fa09d378f259377df08c126022"
 dependencies = [
  "ahash",
 ]
@@ -637,9 +637,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl"
-version = "0.1.4"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8465a3e90e2bf5dd6d63c5f186ad871ffdb9e442fef261f1aa72aac996e4bc72"
+checksum = "b59d734ec8e6f8cd26c9f45acbaef8030964d20b10bfc031da7445e539fd46b9"
 dependencies = [
  "anyhow",
  "errmapgen",
@@ -651,18 +651,20 @@ dependencies = [
  "mv-model",
  "mv-package",
  "serde 1.0.138",
+ "struct-tag",
 ]
 
 [[package]]
 name = "move-idl-types"
-version = "0.1.4"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f3357e72845bb11a9ddc06076f2769c72102c6a163949d1b6c472903e8cbd32"
+checksum = "e5a5fac4acb2c4eee189a57d7a0c1d05b0cd871a899edb9dc86524f035930a11"
 dependencies = [
  "errmap",
  "module-id",
  "mv-core-types",
  "serde 1.0.138",
+ "struct-tag",
 ]
 
 [[package]]
@@ -1464,9 +1466,9 @@ dependencies = [
 
 [[package]]
 name = "serde_yaml"
-version = "0.8.24"
+version = "0.8.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "707d15895415db6628332b737c838b88c598522e4dc70647e59b72312924aebc"
+checksum = "1ec0091e1f5aa338283ce049bd9dfefd55e1f168ac233e85c1ffe0038fb48cbe"
 dependencies = [
  "indexmap",
  "ryu",
@@ -1563,6 +1565,17 @@ name = "strsim"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
+
+[[package]]
+name = "struct-tag"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bd184c953c224262486a531464199d0522544d410f195beeed7d2f5aa9729947"
+dependencies = [
+ "anyhow",
+ "mv-core-types",
+ "serde 1.0.138",
+]
 
 [[package]]
 name = "syn"

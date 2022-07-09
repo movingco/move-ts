@@ -41,7 +41,10 @@ impl CliTool<()> for MoveTSGenTool {
         let ctx = CodegenContext::new(&idl);
         for (name, module_idl) in relevant_modules.iter() {
             let ts = ctx.generate(module_idl)?;
-            std::fs::write(self.out_dir.join(name).with_extension("ts"), ts.to_string())?;
+            std::fs::write(
+                self.out_dir.join(name.name()).with_extension("ts"),
+                ts.to_string(),
+            )?;
         }
 
         std::fs::write(
@@ -49,7 +52,7 @@ impl CliTool<()> for MoveTSGenTool {
             generate_index(
                 &relevant_modules
                     .into_iter()
-                    .map(|(name, _)| name)
+                    .map(|(name, _)| name.name().to_string())
                     .collect::<Vec<_>>(),
             )?
             .to_string(),

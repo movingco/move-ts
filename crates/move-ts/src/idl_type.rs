@@ -28,7 +28,7 @@ fn generate_struct_with_type_args(
         .pkg
         .structs
         .iter()
-        .find(|sd| sd.module_id == ty.module_id && sd.name == ty.name)
+        .find(|sd| sd.name == ty.name)
         .unwrap();
 
     let fields_gen: CodeText = struct_def
