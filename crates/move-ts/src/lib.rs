@@ -61,6 +61,7 @@ impl<'info> CodegenContext<'info> {
             .collect::<Result<Vec<_>>>()?
             .iter()
             .map(|v| v.to_string())
+            .filter(|s| !s.is_empty())
             .collect::<Vec<_>>()
             .join(separator)
             .into())

@@ -1,7 +1,7 @@
 use super::{Codegen, CodegenContext};
 use crate::{format::gen_doc_string, idl_type::generate_idl_type_with_type_args, CodeText};
 use anyhow::*;
-use move_idl::IDLStruct;
+use move_idl::{IDLStruct, IDLType};
 
 fn generate_struct_fields(s: &IDLStruct, ctx: &CodegenContext) -> Result<CodeText> {
     Ok(s.fields
@@ -35,6 +35,13 @@ fn generate_struct_fields(s: &IDLStruct, ctx: &CodegenContext) -> Result<CodeTex
 
 impl Codegen for IDLStruct {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
+        if self.fields.len() == 1
+            && self.fields[0].name == "dummy_field"
+            && self.fields[0].ty == IDLType::Bool
+        {
+            return Ok("".to_string());
+        }
+
         let generics = if self.type_params.is_empty() {
             "".to_string()
         } else {
