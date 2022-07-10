@@ -185,14 +185,18 @@ impl Codegen for IDLModule {
 
 export {{ idl }} from "./idl.js";
 
+/** The address of the module. */
+export const ADDRESS = "{}" as const;
+/** The full module name. */
+export const FULL_NAME = "{}" as const;
+/** The name of the module. */
+export const NAME = "{}" as const;
+
 /** Module ID information. */
 export const id = {{
-  /** The address of the module. */
-  ADDRESS: "{}",
-  /** The full module name. */
-  FULL_NAME: "{}",
-  /** The name of the module. */
-  NAME: "{}"
+  ADDRESS,
+  FULL_NAME,
+  NAME,
 }} as const;
 
 {}
