@@ -127,7 +127,11 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
                         "p.serializers.u64"
                     } else if ts_type == "p.U128" {
                         "p.serializers.u128"
-                    } else if ts_type == "p.HexStringArg" {
+                    } else if ts_type == "p.HexStringArg"
+                        || ts_type == "p.RawAddress"
+                        || ts_type == "p.RawSigner"
+                        || ts_type == "p.ByteString"
+                    {
                         "p.serializers.hexString"
                     } else {
                         return Ok(inner);
