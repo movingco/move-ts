@@ -1,4 +1,4 @@
-use crate::format::gen_doc_string_opt;
+use crate::format::{gen_doc_string, gen_doc_string_opt};
 
 use super::{script_function::ScriptFunctionType, Codegen, CodegenContext};
 use anyhow::*;
@@ -17,8 +17,31 @@ struct ErrorInfo {
     error: IDLError,
 }
 
+struct IDLModuleGenerator<'info>(&'info IDLModule);
+
+impl<'info> IDLModuleGenerator<'info> {
+    fn generate_module_header(&self) -> String {
+        format!("**Module ID:** `{}`", self.0.module_id)
+    }
+
+    pub fn generate_module_doc(&self) -> String {
+        gen_doc_string(
+            &vec![
+                self.0.doc.clone().unwrap_or_default(),
+                self.generate_module_header(),
+                "@module".to_string(),
+            ]
+            .into_iter()
+            .filter(|s| !s.is_empty())
+            .collect::<Vec<_>>()
+            .join("\n\n"),
+        )
+    }
+}
+
 impl Codegen for IDLModule {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
+        let gen = IDLModuleGenerator(self);
         let name = self.module_id.name();
 
         let script_fns = self
@@ -136,7 +159,7 @@ const moduleImpl = {{
 
 {}export const moduleDefinition = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as typeof moduleImpl;
 "#,
-            gen_doc_string_opt(&self.doc.as_ref().map(|s| format!("{}\n\n@module", s))),
+            gen.generate_module_doc(),
             PRELUDE,
             struct_types,
             function_payloads,

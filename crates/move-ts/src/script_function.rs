@@ -10,11 +10,7 @@ pub struct ScriptFunctionPayloadStruct<'info>(&'info ScriptFunctionType<'info>);
 
 impl<'info> ScriptFunctionPayloadStruct<'info> {
     fn doc_link(&self) -> String {
-        format!(
-            "{{@link {}Module.{}}}",
-            self.0.module.module_id.name(),
-            self.0.script.name
-        )
+        format!("{{@link entrypoints.{}}}", self.0.script.name)
     }
 
     fn args_inline(&self, ctx: &CodegenContext) -> Result<CodeText> {

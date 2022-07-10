@@ -37,6 +37,8 @@ pub fn gen_doc_string(string: &str) -> String {
                 .map(|line| format!(" * {}", line))
                 .collect::<Vec<_>>()
                 .join("\n")
+                // move not supported by typedoc yet
+                .replace("```move", "```rust")
         )
     }
 }
