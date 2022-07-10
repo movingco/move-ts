@@ -11,18 +11,29 @@ keywords = ["move", "typescript", "codegen", "sui", "aptos"]
 
 [features]
 default = []
-address20 = ["move-idl/address20", "move-ts/address20"]
-address32 = ["move-idl/address32", "move-ts/address32"]
+address20 = [
+    "move-idl/address20",
+    "move-ts/address20",
+    "move-core-types/address20",
+]
+address32 = [
+    "move-idl/address32",
+    "move-ts/address32",
+    "move-core-types/address32",
+]
 
 [dependencies]
 anyhow = "1.0.42"
 async-trait = "0.1.56"
 clap = { version = "3.2", features = ["derive"] }
 json-cli = "0.1.0"
-move-idl = "0.2.0"
-serde_json = "1.0.79"
-tokio = { version = "1.18.2", features = ["full"] }
+move-idl = "0.2.2"
+move-package = { version = "0.1.6", package = "mv-package" }
+move-core-types = { version = "0.1.6", package = "mv-core-types" }
 move-ts = { version = "0.2.0", path = "../move-ts" }
+serde_json = "1.0.79"
+static-address = "0.1"
+tokio = { version = "1.18.2", features = ["full"] }
 
 [[bin]]
 name = "move-tsgen"

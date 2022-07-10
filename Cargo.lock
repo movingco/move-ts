@@ -319,9 +319,9 @@ dependencies = [
 
 [[package]]
 name = "errmapgen"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7ab4268a6f0f3dc71830a8312faf26495809bc59e367aeb47515e74af9c6d78"
+checksum = "1089ac329dde2ead3c45a4859afa26c96941e234564a37917aa6dd3d137125cf"
 dependencies = [
  "anyhow",
  "errmap",
@@ -637,9 +637,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27c69f923e9b1b01a1ff05fd0e6b42f8b043d7c53bd4d25590df878f4f0332ac"
+checksum = "76d3d913b59563680939d9bdd9d3fb35d35faaa6d0d6a87d2a4eb2f4502e95a7"
 dependencies = [
  "anyhow",
  "errmapgen",
@@ -656,9 +656,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl-types"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7b26be2c82a17a66b94c97f81ff1ac4a33895610074f95e4e604f12eef1d798"
+checksum = "332300af0c8b17be7744a240dad62e8b4f5888b12469112d9e8eecdb237f4365"
 dependencies = [
  "errmap",
  "module-id",
@@ -732,7 +732,10 @@ dependencies = [
  "json-cli",
  "move-idl",
  "move-ts",
+ "mv-core-types",
+ "mv-package",
  "serde_json",
+ "static-address",
  "tokio",
 ]
 

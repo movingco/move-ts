@@ -1,9 +1,10 @@
 //! CLI for parsing an IDL from a Move package.
-use std::path::PathBuf;
+use std::{collections::BTreeMap, path::PathBuf};
 
 use anyhow::*;
 use json_cli::{CliTool, CliTypedResult};
 use move_idl::IDLBuilder;
+use move_package::BuildConfig;
 use move_ts::{generate_index, CodegenContext};
 
 /// Parses a Move workspace into a set of IDLs.
@@ -25,7 +26,16 @@ pub struct MoveTSGenTool {
 #[async_trait::async_trait]
 impl CliTool<()> for MoveTSGenTool {
     async fn execute(self) -> CliTypedResult<()> {
-        let idl = IDLBuilder::load(&self.root)?.gen()?;
+        let mut additional_named_addresses = BTreeMap::new();
+        additional_named_addresses
+            .insert("Std".to_string(), static_address::static_address!("0x1"));
+        let build_config_std = BuildConfig {
+            generate_docs: true,
+            generate_abis: true,
+            additional_named_addresses,
+            ..Default::default()
+        };
+        let idl = IDLBuilder::load_with_config(&self.root, build_config_std)?.gen()?;
 
         std::fs::create_dir_all(&self.out_dir)?;
 
