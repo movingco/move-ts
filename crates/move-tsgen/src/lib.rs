@@ -67,6 +67,13 @@ impl CliTool<()> for MoveTSGenTool {
                 gen.generate_idl_module()?.to_string(),
             )?;
 
+            if let Some(errors_module) = gen.generate_errors_module()? {
+                std::fs::write(
+                    module_dir.join("errors").with_extension("ts"),
+                    errors_module.to_string(),
+                )?;
+            }
+
             let ts = ctx.generate(module_idl)?;
             std::fs::write(
                 module_dir.join("index").with_extension("ts"),

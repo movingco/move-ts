@@ -58,7 +58,7 @@ impl<'info> IDLModuleGenerator<'info> {
     }
 
     pub fn generate_entrypoint_bodies(&self, ctx: &CodegenContext) -> Result<CodeText> {
-        Ok(ctx.try_join(&self.get_script_fns())?.indent())
+        ctx.try_join(&self.get_script_fns())
     }
 
     pub fn generate_entrypoint_module(&self, ctx: &CodegenContext) -> Result<CodeText> {
@@ -73,11 +73,45 @@ impl<'info> IDLModuleGenerator<'info> {
 
     pub fn generate_idl_module(&self) -> Result<CodeText> {
         Ok(format!(
-            "{}export const idl = {} as const;",
+            "{}{}export const idl = {} as const;",
             gen_doc_string("The IDL of the module.\n\n@module"),
+            gen_doc_string("The IDL of the module."),
             &serde_json::to_string(self.0)?,
         )
         .into())
+    }
+
+    pub fn generate_errors_module(&self) -> Result<Option<CodeText>> {
+        if self.0.errors.is_empty() {
+            return Ok(None);
+        }
+
+        let errors = self
+            .0
+            .errors
+            .iter()
+            .map(|(code, error)| -> Result<CodeText> {
+                Ok(format!(
+                    "{}export const {} = {} as const;",
+                    gen_doc_string_opt(&error.doc),
+                    error.name,
+                    serde_json::to_string_pretty(&ErrorInfo {
+                        code: *code,
+                        error: error.clone()
+                    })?
+                )
+                .into())
+            })
+            .collect::<Result<Vec<CodeText>>>()?;
+
+        Ok(Some(
+            format!(
+                "{}{}",
+                gen_doc_string("Module errors.\n\n@module"),
+                CodeText::try_join_with_separator(&errors, "\n\n")?
+            )
+            .into(),
+        ))
     }
 
     pub fn generate_entrypoints(&self, ctx: &CodegenContext) -> Result<String> {
@@ -114,17 +148,6 @@ impl Codegen for IDLModule {
         )?;
 
         let struct_types = ctx.try_join(&self.structs)?;
-
-        let mut error_map: BTreeMap<String, ErrorInfo> = BTreeMap::new();
-        for (code, error) in self.errors.iter() {
-            error_map.insert(
-                error.name.clone(),
-                ErrorInfo {
-                    code: *code,
-                    error: error.clone(),
-                },
-            );
-        }
 
         let mut fn_map: BTreeMap<String, IDLScriptFunction> = BTreeMap::new();
         for script_fn in self.functions.iter() {
@@ -172,8 +195,7 @@ export const id = {{
   NAME: "{}"
 }} as const;
 
-/** Module errors. */
-export const errors = {} as const;
+{}
 
 /** Module error codes. */
 export const errorCodes = {} as const;
@@ -190,7 +212,6 @@ export const structs = {} as const;
 /** Payload generators for module `{}`. */
 const moduleImpl = {{
   ...id,
-  errors,
   errorCodes,
   functions,
   resources,
@@ -211,7 +232,11 @@ const moduleImpl = {{
             self.module_id.address().to_hex_literal(),
             self.module_id.short_str_lossless(),
             self.module_id.name(),
-            serde_json::to_string_pretty(&error_map)?,
+            if !gen.0.errors.is_empty() {
+                "export * as errors from \"./errors.js\";"
+            } else {
+                ""
+            },
             serde_json::to_string_pretty(&self.errors)?,
             serde_json::to_string_pretty(&fn_map)?,
             serde_json::to_string_pretty(&resources)?,

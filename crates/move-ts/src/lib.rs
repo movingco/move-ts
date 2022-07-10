@@ -25,6 +25,21 @@ impl Display for CodeText {
     }
 }
 
+impl CodeText {
+    pub fn try_join_with_separator<'a, I>(values: I, separator: &str) -> Result<CodeText>
+    where
+        I: IntoIterator<Item = &'a CodeText>,
+    {
+        Ok(values
+            .into_iter()
+            .map(|v| v.to_string())
+            .filter(|s| !s.is_empty())
+            .collect::<Vec<_>>()
+            .join(separator)
+            .into())
+    }
+}
+
 pub struct CodegenContext<'info> {
     pkg: &'info IDLPackage,
 }
@@ -60,16 +75,13 @@ impl<'info> CodegenContext<'info> {
         I: IntoIterator<Item = &'a T>,
         T: Codegen + 'a,
     {
-        Ok(values
-            .into_iter()
-            .map(|v| self.generate(v))
-            .collect::<Result<Vec<_>>>()?
-            .iter()
-            .map(|v| v.to_string())
-            .filter(|s| !s.is_empty())
-            .collect::<Vec<_>>()
-            .join(separator)
-            .into())
+        CodeText::try_join_with_separator(
+            &values
+                .into_iter()
+                .map(|v| self.generate(v))
+                .collect::<Result<Vec<_>>>()?,
+            separator,
+        )
     }
 
     pub fn try_join<'a, I, T>(&self, values: I) -> Result<CodeText>
