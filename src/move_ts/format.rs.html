@@ -58,6 +58,8 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
 </pre><pre class="rust"><code><span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gen_doc_string_opt</span>(<span class="ident">string</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="ident">String</span> {
     <span class="ident">string</span>
         .<span class="ident">as_ref</span>()
@@ -97,6 +99,8 @@
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">line</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot; * {}&quot;</span>, <span class="ident">line</span>))
                 .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
                 .<span class="ident">join</span>(<span class="string">&quot;\n&quot;</span>)
+                <span class="comment">// move not supported by typedoc yet</span>
+                .<span class="ident">replace</span>(<span class="string">&quot;```move&quot;</span>, <span class="string">&quot;```rust&quot;</span>)
         )
     }
 }

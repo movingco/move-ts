@@ -144,10 +144,10 @@
         <span class="ident">IDLType::U8</span> =&gt; <span class="string">&quot;number&quot;</span>.<span class="ident">to_string</span>(),
         <span class="ident">IDLType::U64</span> =&gt; <span class="string">&quot;p.U64&quot;</span>.<span class="ident">to_string</span>(),
         <span class="ident">IDLType::U128</span> =&gt; <span class="string">&quot;p.U128&quot;</span>.<span class="ident">to_string</span>(),
-        <span class="ident">IDLType::Address</span> =&gt; <span class="string">&quot;p.HexStringArg&quot;</span>.<span class="ident">to_string</span>(),
-        <span class="ident">IDLType::Signer</span> =&gt; <span class="string">&quot;p.HexStringArg&quot;</span>.<span class="ident">to_string</span>(),
+        <span class="ident">IDLType::Address</span> =&gt; <span class="string">&quot;p.RawAddress&quot;</span>.<span class="ident">to_string</span>(),
+        <span class="ident">IDLType::Signer</span> =&gt; <span class="string">&quot;p.RawSigner&quot;</span>.<span class="ident">to_string</span>(),
         <span class="ident">IDLType::Vector</span>(<span class="ident">inner</span>) =&gt; <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">inner</span>.<span class="ident">clone</span>() {
-            <span class="ident">IDLType::U8</span> =&gt; <span class="string">&quot;p.HexStringArg&quot;</span>.<span class="ident">to_string</span>(),
+            <span class="ident">IDLType::U8</span> =&gt; <span class="string">&quot;p.ByteString&quot;</span>.<span class="ident">to_string</span>(),
             <span class="ident">inner</span> =&gt; <span class="macro">format!</span>(
                 <span class="string">&quot;ReadonlyArray&lt;{}&gt;&quot;</span>,
                 <span class="ident">generate_idl_type_with_type_args</span>(<span class="kw-2">&amp;</span><span class="ident">inner</span>, <span class="ident">ctx</span>, <span class="ident">type_args</span>)<span class="question-mark">?</span>
