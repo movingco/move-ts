@@ -10,7 +10,7 @@ pub struct ScriptFunctionPayloadStruct<'info>(&'info ScriptFunctionType<'info>);
 
 impl<'info> ScriptFunctionPayloadStruct<'info> {
     fn doc_link(&self) -> String {
-        format!("{{@link entrypoints.{}}}", self.0.script.name)
+        format!("{{@link entry.{}}}", self.0.script.name)
     }
 
     fn args_inline(&self, ctx: &CodegenContext) -> Result<CodeText> {
@@ -143,12 +143,12 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
         );
 
         Ok(format!(
-            r#"{}{}: ({}): p.ScriptFunctionPayload => ({{
+            r#"{}export const {} = ({}): p.ScriptFunctionPayload => ({{
   type: "script_function_payload",
   function: "{}",
   type_arguments: {},
   arguments: {},
-}}),"#,
+}});"#,
             self.script
                 .doc
                 .as_ref()
@@ -157,7 +157,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
             self.script.name,
             if self.should_render_payload_struct() {
                 format!(
-                    "{{ {} }}: {}",
+                    "{{ {} }}: mod.{}",
                     vec![
                         if self.script.args.is_empty() {
                             None

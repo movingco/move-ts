@@ -7,7 +7,8 @@ pub mod idl_type;
 pub mod script_function;
 use crate::format::indent;
 use anyhow::*;
-use move_idl::IDLPackage;
+use idl_module::IDLModuleGenerator;
+use move_idl::{IDLModule, IDLPackage};
 use std::fmt::Display;
 
 /// Generate TypeScript code for a value.
@@ -35,7 +36,7 @@ where
 {
     Ok(module_names
         .into_iter()
-        .map(|name| format!("export * as {}Module from \"./{}.js\";", name, name))
+        .map(|name| format!("export * as {}Module from \"./{}/index.js\";", name, name))
         .collect::<Vec<_>>()
         .join("\n")
         .into())
@@ -44,6 +45,10 @@ where
 impl<'info> CodegenContext<'info> {
     pub fn new(pkg: &'info IDLPackage) -> Self {
         CodegenContext { pkg }
+    }
+
+    pub fn get_module_generator(&self, value: &'info IDLModule) -> IDLModuleGenerator<'info> {
+        IDLModuleGenerator::new(value)
     }
 
     pub fn generate<T: Codegen>(&self, value: &T) -> Result<CodeText> {

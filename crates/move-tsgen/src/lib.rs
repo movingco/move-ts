@@ -50,9 +50,26 @@ impl CliTool<()> for MoveTSGenTool {
 
         let ctx = CodegenContext::new(&idl);
         for (name, module_idl) in relevant_modules.iter() {
+            let gen = ctx.get_module_generator(module_idl);
+
+            let module_dir = &self.out_dir.join(name.name());
+            std::fs::create_dir_all(module_dir)?;
+
+            if gen.has_entrypoints() {
+                std::fs::write(
+                    module_dir.join("entry").with_extension("ts"),
+                    gen.generate_entrypoint_module(&ctx)?.to_string(),
+                )?;
+            }
+
+            std::fs::write(
+                module_dir.join("idl").with_extension("ts"),
+                gen.generate_idl_module()?.to_string(),
+            )?;
+
             let ts = ctx.generate(module_idl)?;
             std::fs::write(
-                self.out_dir.join(name.name()).with_extension("ts"),
+                module_dir.join("index").with_extension("ts"),
                 ts.to_string(),
             )?;
         }

@@ -1,4 +1,7 @@
-use crate::format::{gen_doc_string, gen_doc_string_opt};
+use crate::{
+    format::{gen_doc_string, gen_doc_string_opt},
+    CodeText,
+};
 
 use super::{script_function::ScriptFunctionType, Codegen, CodegenContext};
 use anyhow::*;
@@ -17,9 +20,13 @@ struct ErrorInfo {
     error: IDLError,
 }
 
-struct IDLModuleGenerator<'info>(&'info IDLModule);
+pub struct IDLModuleGenerator<'info>(&'info IDLModule);
 
 impl<'info> IDLModuleGenerator<'info> {
+    pub fn new(module: &'info IDLModule) -> Self {
+        IDLModuleGenerator(module)
+    }
+
     fn generate_module_header(&self) -> String {
         format!("**Module ID:** `{}`", self.0.module_id)
     }
@@ -36,6 +43,49 @@ impl<'info> IDLModuleGenerator<'info> {
             .collect::<Vec<_>>()
             .join("\n\n"),
         )
+    }
+
+    fn get_script_fns(&self) -> Vec<ScriptFunctionType> {
+        self.0
+            .functions
+            .iter()
+            .map(|script_fn| ScriptFunctionType::new(self.0, script_fn))
+            .collect::<Vec<_>>()
+    }
+
+    pub fn has_entrypoints(&self) -> bool {
+        !self.0.functions.is_empty()
+    }
+
+    pub fn generate_entrypoint_bodies(&self, ctx: &CodegenContext) -> Result<CodeText> {
+        Ok(ctx.try_join(&self.get_script_fns())?.indent())
+    }
+
+    pub fn generate_entrypoint_module(&self, ctx: &CodegenContext) -> Result<CodeText> {
+        Ok(format!(
+            "{}{}\nimport * as mod from './index.js';\n{}",
+            gen_doc_string("Entrypoint builders.\n\n@module"),
+            PRELUDE,
+            self.generate_entrypoint_bodies(ctx)?
+        )
+        .into())
+    }
+
+    pub fn generate_idl_module(&self) -> Result<CodeText> {
+        Ok(format!(
+            "{}export const idl = {} as const;",
+            gen_doc_string("The IDL of the module.\n\n@module"),
+            &serde_json::to_string(self.0)?,
+        )
+        .into())
+    }
+
+    pub fn generate_entrypoints(&self, ctx: &CodegenContext) -> Result<String> {
+        Ok(format!(
+            "{}export const entrypoints = {{\n{}\n}};",
+            gen_doc_string("Entrypoint builders."),
+            self.generate_entrypoint_bodies(ctx)?
+        ))
     }
 }
 
@@ -63,11 +113,7 @@ impl Codegen for IDLModule {
                 .collect::<Vec<_>>(),
         )?;
 
-        let function_bodies = ctx.try_join(&script_fns)?.indent();
-
         let struct_types = ctx.try_join(&self.structs)?;
-
-        let idl_json = &serde_json::to_string(self)?;
 
         let mut error_map: BTreeMap<String, ErrorInfo> = BTreeMap::new();
         for (code, error) in self.errors.iter() {
@@ -112,13 +158,9 @@ impl Codegen for IDLModule {
 
 {}
 
-/** Entrypoint builders. */
-export const entrypoints = {{
 {}
-}} as const;
 
-/** The IDL of the module. */
-export const idl = {} as const;
+export {{ idl }} from "./idl.js";
 
 /** Module ID information. */
 export const id = {{
@@ -153,8 +195,6 @@ const moduleImpl = {{
   functions,
   resources,
   structs,
-
-  ...entrypoints
 }} as const;
 
 {}export const moduleDefinition = moduleImpl as p.MoveModuleDefinition<"{}", "{}"> as typeof moduleImpl;
@@ -163,8 +203,11 @@ const moduleImpl = {{
             PRELUDE,
             struct_types,
             function_payloads,
-            function_bodies,
-            idl_json,
+            if gen.has_entrypoints() {
+                "export * as entry from \"./entry.js\";"
+            } else {
+                ""
+            },
             self.module_id.address().to_hex_literal(),
             self.module_id.short_str_lossless(),
             self.module_id.name(),
