@@ -301,6 +301,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "docstring"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4615dd7b5c2468d6c89432ebe22583879c0ee11bdd929c5ddc5b0d6113b6210d"
+
+[[package]]
 name = "either"
 version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -319,11 +325,12 @@ dependencies = [
 
 [[package]]
 name = "errmapgen"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1089ac329dde2ead3c45a4859afa26c96941e234564a37917aa6dd3d137125cf"
+checksum = "b9adeee57203869c7d198eb528e3ae82cf2c31ff8cca029ef2e1829f530ec170"
 dependencies = [
  "anyhow",
+ "docstring",
  "errmap",
  "mv-core-types",
  "mv-model",
@@ -637,11 +644,12 @@ dependencies = [
 
 [[package]]
 name = "move-idl"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76d3d913b59563680939d9bdd9d3fb35d35faaa6d0d6a87d2a4eb2f4502e95a7"
+checksum = "961a945ab259f28620545764bc55d20e4c750725139811fe557503b0edb8f5af"
 dependencies = [
  "anyhow",
+ "docstring",
  "errmapgen",
  "module-id",
  "move-bytecode-verifier",
@@ -656,9 +664,9 @@ dependencies = [
 
 [[package]]
 name = "move-idl-types"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "332300af0c8b17be7744a240dad62e8b4f5888b12469112d9e8eecdb237f4365"
+checksum = "13466f5ef6ebbfa8111d8d6ce8919c0ee91ac683cfe8fc6d8e8a79f8908c2382"
 dependencies = [
  "errmap",
  "module-id",
