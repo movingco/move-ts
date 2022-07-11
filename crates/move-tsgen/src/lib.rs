@@ -5,7 +5,7 @@ use anyhow::*;
 use json_cli::{CliTool, CliTypedResult};
 use move_idl::IDLBuilder;
 use move_package::BuildConfig;
-use move_ts::{generate_index, CodegenContext};
+use move_ts::{idl_package::IDLPackageGenerator, Codegen};
 
 /// Parses a Move workspace into a set of IDLs.
 #[derive(clap::Parser)]
@@ -39,57 +39,42 @@ impl CliTool<()> for MoveTSGenTool {
 
         std::fs::create_dir_all(&self.out_dir)?;
 
-        let relevant_modules = if self.with_dependencies {
-            let mut idl_mut = idl.clone();
-            let mut modules = idl_mut.modules;
-            modules.append(&mut idl_mut.dependencies);
-            modules
-        } else {
-            idl.clone().modules
-        };
-
-        let ctx = CodegenContext::new(&idl);
-        for (name, module_idl) in relevant_modules.iter() {
-            let gen = ctx.get_module_generator(module_idl);
-
-            let module_dir = &self.out_dir.join(name.name());
+        let package_gen = IDLPackageGenerator::new(&idl, self.with_dependencies);
+        for gen in package_gen.module_generators() {
+            let module_dir = &self.out_dir.join(gen.0.module_id.name());
             std::fs::create_dir_all(module_dir)?;
 
             if gen.has_entrypoints() {
                 std::fs::write(
                     module_dir.join("entry").with_extension("ts"),
-                    gen.generate_entrypoint_module(&ctx)?.to_string(),
+                    gen.generate_entrypoint_module(&package_gen.ctx)?,
                 )?;
             }
 
             std::fs::write(
                 module_dir.join("idl").with_extension("ts"),
-                gen.generate_idl_module()?.to_string(),
+                gen.generate_idl_module()?,
             )?;
 
             if let Some(errors_module) = gen.generate_errors_module()? {
                 std::fs::write(
                     module_dir.join("errors").with_extension("ts"),
-                    errors_module.to_string(),
+                    errors_module,
                 )?;
             }
 
-            let ts = ctx.generate(module_idl)?;
-            std::fs::write(
-                module_dir.join("index").with_extension("ts"),
-                ts.to_string(),
-            )?;
+            let ts = gen.0.generate_typescript(&package_gen.ctx)?;
+            std::fs::write(module_dir.join("index").with_extension("ts"), ts)?;
         }
 
         std::fs::write(
+            self.out_dir.join("errmap").with_extension("ts"),
+            &package_gen.generate_errmap_module()?,
+        )?;
+
+        std::fs::write(
             self.out_dir.join("index").with_extension("ts"),
-            generate_index(
-                &relevant_modules
-                    .into_iter()
-                    .map(|(name, _)| name.name().to_string())
-                    .collect::<Vec<_>>(),
-            )?
-            .to_string(),
+            package_gen.generate_index()?,
         )?;
 
         Ok(())

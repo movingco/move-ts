@@ -2,13 +2,17 @@
 
 pub mod format;
 pub mod idl_module;
+pub mod idl_package;
 pub mod idl_struct;
 pub mod idl_type;
 pub mod script_function;
+
 use crate::format::indent;
 use anyhow::*;
+use format::gen_doc_string;
 use idl_module::IDLModuleGenerator;
 use move_idl::{IDLModule, IDLPackage};
+use serde::Serialize;
 use std::fmt::Display;
 
 /// Generate TypeScript code for a value.
@@ -19,6 +23,12 @@ pub trait Codegen {
 #[derive(Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CodeText(String);
 
+impl AsRef<[u8]> for CodeText {
+    fn as_ref(&self) -> &[u8] {
+        self.0.as_ref()
+    }
+}
+
 impl Display for CodeText {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
@@ -26,6 +36,26 @@ impl Display for CodeText {
 }
 
 impl CodeText {
+    pub fn new(s: &str) -> Self {
+        CodeText(s.to_string())
+    }
+
+    pub fn new_reexport(name: &str, path: &str) -> Self {
+        format!("export * as {} from \"{}\";", name, path).into()
+    }
+
+    pub fn new_const_export<T>(name: &str, value: &T) -> Result<Self>
+    where
+        T: ?Sized + Serialize,
+    {
+        Ok(format!(
+            "export const {} = {} as const;",
+            name,
+            serde_json::to_string_pretty(value)?
+        )
+        .into())
+    }
+
     pub fn try_join_with_separator<'a, I>(values: I, separator: &str) -> Result<CodeText>
     where
         I: IntoIterator<Item = &'a CodeText>,
@@ -38,23 +68,23 @@ impl CodeText {
             .join(separator)
             .into())
     }
+
+    pub fn docs(&self, docs: &str) -> CodeText {
+        format!("{}{}", gen_doc_string(docs), self).into()
+    }
+
+    pub fn module_docs(&self, docs: &str) -> CodeText {
+        format!(
+            "{}\n{}",
+            gen_doc_string(&format!("{}\n\n@module", docs)),
+            self
+        )
+        .into()
+    }
 }
 
 pub struct CodegenContext<'info> {
     pkg: &'info IDLPackage,
-}
-
-/// Generates an `index.ts` file for the given module names.
-pub fn generate_index<'a, I>(module_names: I) -> Result<CodeText>
-where
-    I: IntoIterator<Item = &'a String>,
-{
-    Ok(module_names
-        .into_iter()
-        .map(|name| format!("export * as {}Module from \"./{}/index.js\";", name, name))
-        .collect::<Vec<_>>()
-        .join("\n")
-        .into())
 }
 
 impl<'info> CodegenContext<'info> {

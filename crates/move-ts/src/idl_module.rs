@@ -20,7 +20,7 @@ struct ErrorInfo {
     error: IDLError,
 }
 
-pub struct IDLModuleGenerator<'info>(&'info IDLModule);
+pub struct IDLModuleGenerator<'info>(pub &'info IDLModule);
 
 impl<'info> IDLModuleGenerator<'info> {
     pub fn new(module: &'info IDLModule) -> Self {
@@ -33,7 +33,7 @@ impl<'info> IDLModuleGenerator<'info> {
 
     pub fn generate_module_doc(&self) -> String {
         gen_doc_string(
-            &vec![
+            &[
                 self.0.doc.clone().unwrap_or_default(),
                 self.generate_module_header(),
                 "@module".to_string(),
