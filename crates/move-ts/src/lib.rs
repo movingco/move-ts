@@ -44,6 +44,10 @@ impl CodeText {
         format!("export * as {} from \"{}\";", name, path).into()
     }
 
+    pub fn new_named_reexport(name: &str, path: &str) -> Self {
+        format!("export {{ {} }} from \"{}\";", name, path).into()
+    }
+
     pub fn new_const_export<T>(name: &str, value: &T) -> Result<Self>
     where
         T: ?Sized + Serialize,

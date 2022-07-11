@@ -49,7 +49,7 @@ impl<'info> IDLPackageGenerator<'info> {
                     .map(|m| m.module_id.name().to_string())
                     .collect::<Vec<_>>(),
             )?,
-            CodeText::new_reexport("errmap", "./errmap.js")
+            CodeText::new_named_reexport("errmap", "./errmap.js")
         )
         .into();
 
