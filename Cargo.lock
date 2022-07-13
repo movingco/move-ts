@@ -728,6 +728,7 @@ dependencies = [
  "move-idl",
  "serde 1.0.139",
  "serde_json",
+ "static-address",
 ]
 
 [[package]]

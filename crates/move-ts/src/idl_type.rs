@@ -62,12 +62,16 @@ pub(crate) fn generate_idl_type_with_type_args(
             ),
         },
         IDLType::Struct(inner) => {
-            let next_type_args = inner
-                .ty_args
-                .iter()
-                .map(|arg| generate_idl_type_with_type_args(arg, ctx, type_args))
-                .collect::<Result<Vec<_>>>()?;
-            generate_struct_with_type_args(inner, ctx, &next_type_args)?
+            if inner.name.to_string() == *"0x1::ASCII::String" {
+                "string".to_string()
+            } else {
+                let next_type_args = inner
+                    .ty_args
+                    .iter()
+                    .map(|arg| generate_idl_type_with_type_args(arg, ctx, type_args))
+                    .collect::<Result<Vec<_>>>()?;
+                generate_struct_with_type_args(inner, ctx, &next_type_args)?
+            }
         }
         IDLType::TypeParam(v) => {
             let result = type_args.get(*v as usize);
