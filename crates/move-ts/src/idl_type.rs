@@ -85,7 +85,7 @@ pub(crate) fn generate_idl_type_with_type_args(
         }
         IDLType::Tuple(_) => todo!(),
     };
-    if result.starts_with("p.") {
+    if !parse_args && result.starts_with("p.") {
         Ok("string".to_string())
     } else {
         Ok(result)
