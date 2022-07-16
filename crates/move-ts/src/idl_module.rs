@@ -20,21 +20,29 @@ struct ErrorInfo {
     error: IDLError,
 }
 
-pub struct IDLModuleGenerator<'info>(pub &'info IDLModule);
+pub struct IDLModuleGenerator<'info> {
+    pub module: &'info IDLModule,
+    pub script_fns: Vec<ScriptFunctionType<'info>>,
+}
 
 impl<'info> IDLModuleGenerator<'info> {
     pub fn new(module: &'info IDLModule) -> Self {
-        IDLModuleGenerator(module)
+        let script_fns = module
+            .functions
+            .iter()
+            .map(|script_fn| ScriptFunctionType::new(module, script_fn))
+            .collect::<Vec<_>>();
+        IDLModuleGenerator { module, script_fns }
     }
 
     fn generate_module_header(&self) -> String {
-        format!("**Module ID:** `{}`", self.0.module_id)
+        format!("**Module ID:** `{}`", self.module.module_id)
     }
 
     pub fn generate_module_doc(&self) -> String {
         gen_doc_string(
             &[
-                self.0.doc.clone().unwrap_or_default(),
+                self.module.doc.clone().unwrap_or_default(),
                 self.generate_module_header(),
                 "@module".to_string(),
             ]
@@ -45,20 +53,12 @@ impl<'info> IDLModuleGenerator<'info> {
         )
     }
 
-    fn get_script_fns(&self) -> Vec<ScriptFunctionType> {
-        self.0
-            .functions
-            .iter()
-            .map(|script_fn| ScriptFunctionType::new(self.0, script_fn))
-            .collect::<Vec<_>>()
-    }
-
     pub fn has_entrypoints(&self) -> bool {
-        !self.0.functions.is_empty()
+        !self.module.functions.is_empty()
     }
 
     pub fn generate_entrypoint_bodies(&self, ctx: &CodegenContext) -> Result<CodeText> {
-        ctx.try_join(&self.get_script_fns())
+        ctx.try_join(&self.script_fns)
     }
 
     pub fn generate_entrypoint_module(&self, ctx: &CodegenContext) -> Result<CodeText> {
@@ -76,18 +76,18 @@ impl<'info> IDLModuleGenerator<'info> {
             "{}{}export const idl = {} as const;",
             gen_doc_string("The IDL of the module.\n\n@module"),
             gen_doc_string("The IDL of the module."),
-            &serde_json::to_string(self.0)?,
+            &serde_json::to_string(self.module)?,
         )
         .into())
     }
 
     pub fn generate_errors_module(&self) -> Result<Option<CodeText>> {
-        if self.0.errors.is_empty() {
+        if self.module.errors.is_empty() {
             return Ok(None);
         }
 
         let errors = self
-            .0
+            .module
             .errors
             .iter()
             .map(|(code, error)| -> Result<CodeText> {
@@ -125,17 +125,11 @@ impl<'info> IDLModuleGenerator<'info> {
 
 impl Codegen for IDLModule {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
-        let gen = IDLModuleGenerator(self);
+        let gen = IDLModuleGenerator::new(self);
         let name = self.module_id.name();
 
-        let script_fns = self
-            .functions
-            .iter()
-            .map(|script_fn| ScriptFunctionType::new(self, script_fn))
-            .collect::<Vec<_>>();
-
         let function_payloads = ctx.try_join(
-            &script_fns
+            &gen.script_fns
                 .iter()
                 .filter_map(|f| {
                     if f.should_render_payload_struct() {
@@ -236,7 +230,7 @@ const moduleImpl = {{
             self.module_id.address().to_hex_literal(),
             self.module_id.short_str_lossless(),
             self.module_id.name(),
-            if !gen.0.errors.is_empty() {
+            if !gen.module.errors.is_empty() {
                 "export * as errors from \"./errors.js\";"
             } else {
                 ""

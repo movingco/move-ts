@@ -26,27 +26,30 @@ impl<'info> ScriptFunctionPayloadStruct<'info> {
 
 impl<'info> Codegen for ScriptFunctionPayloadStruct<'info> {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
-        Ok(format!(
-            "/**\n * Payload arguments for {}.\n */\nexport type {}Payload = {{\n{}{}}};",
-            self.doc_link(),
-            self.0.type_name,
-            if self.0.script.args.is_empty() {
-                "".to_string()
-            } else {
-                format!(
-                    "{}\n",
-                    indent(&format!("args: {{\n{}\n}};\n", self.args_inline(ctx)?))
-                )
-            },
-            if self.0.script.ty_args.is_empty() {
-                "".to_string()
-            } else {
-                format!(
-                    "{}\n",
-                    indent(&format!("typeArgs: {{\n{}\n}};\n", self.type_args_inline()))
-                )
-            },
-        ))
+        Ok(CodeText::new_type_export(
+            &self.0.payload_args_type_name(),
+            &format!(
+                "{}{}",
+                if self.0.script.args.is_empty() {
+                    "".to_string()
+                } else {
+                    format!(
+                        "{}\n",
+                        indent(&format!("args: {{\n{}\n}};\n", self.args_inline(ctx)?))
+                    )
+                },
+                if self.0.script.ty_args.is_empty() {
+                    "".to_string()
+                } else {
+                    format!(
+                        "{}\n",
+                        indent(&format!("typeArgs: {{\n{}\n}};\n", self.type_args_inline()))
+                    )
+                },
+            ),
+        )
+        .docs(&format!("Payload arguments for {}.", self.doc_link()))
+        .into())
     }
 }
 
@@ -90,8 +93,8 @@ impl<'info> ScriptFunctionType<'info> {
         ScriptFunctionPayloadStruct(self)
     }
 
-    pub fn payload_type_name(&'info self) -> String {
-        format!("{}Payload", self.type_name)
+    pub fn payload_args_type_name(&'info self) -> String {
+        format!("{}Args", self.type_name)
     }
 
     pub fn should_render_payload_struct(&'info self) -> bool {
@@ -174,7 +177,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
                     .flatten()
                     .collect::<Vec<_>>()
                     .join(", "),
-                    self.payload_type_name()
+                    self.payload_args_type_name()
                 )
             } else {
                 "".to_string()

@@ -41,7 +41,7 @@ impl CliTool<()> for MoveTSGenTool {
 
         let package_gen = IDLPackageGenerator::new(&idl, self.with_dependencies);
         for gen in package_gen.module_generators() {
-            let module_dir = &self.out_dir.join(gen.0.module_id.name());
+            let module_dir = &self.out_dir.join(gen.module.module_id.name());
             std::fs::create_dir_all(module_dir)?;
 
             if gen.has_entrypoints() {
@@ -63,7 +63,7 @@ impl CliTool<()> for MoveTSGenTool {
                 )?;
             }
 
-            let ts = gen.0.generate_typescript(&package_gen.ctx)?;
+            let ts = gen.module.generate_typescript(&package_gen.ctx)?;
             std::fs::write(module_dir.join("index").with_extension("ts"), ts)?;
         }
 

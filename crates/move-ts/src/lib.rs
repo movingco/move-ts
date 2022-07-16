@@ -48,6 +48,11 @@ impl CodeText {
         format!("export {{ {} }} from \"{}\";", name, path).into()
     }
 
+    pub fn new_type_export(name: &str, path: &str) -> Self {
+        format!("export type {} = {{\n{} }};", name, path).into()
+    }
+
+    /// Creates a `export const {name} = {value} as const` statement.
     pub fn new_const_export<T>(name: &str, value: &T) -> Result<Self>
     where
         T: ?Sized + Serialize,
