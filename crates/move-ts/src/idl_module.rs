@@ -63,7 +63,7 @@ impl<'info> IDLModuleGenerator<'info> {
 
     pub fn generate_entrypoint_module(&self, ctx: &CodegenContext) -> Result<CodeText> {
         Ok(format!(
-            "{}{}\nimport * as mod from './index.js';\n{}",
+            "{}{}\nimport * as mod from './index.js';\nimport * as payloads from './payloads.js';\n{}",
             gen_doc_string("Entrypoint builders.\n\n@module"),
             PRELUDE,
             self.generate_entrypoint_bodies(ctx)?
@@ -114,12 +114,16 @@ impl<'info> IDLModuleGenerator<'info> {
         ))
     }
 
-    pub fn generate_entrypoints(&self, ctx: &CodegenContext) -> Result<String> {
-        Ok(format!(
-            "{}export const entrypoints = {{\n{}\n}};",
-            gen_doc_string("Entrypoint builders."),
-            self.generate_entrypoint_bodies(ctx)?
-        ))
+    pub fn generate_entry_payloads_module(&self, ctx: &CodegenContext) -> Result<CodeText> {
+        Ok(ctx
+            .try_join(
+                &self
+                    .script_fns
+                    .iter()
+                    .map(|f| f.generate_entry_payload_struct(ctx))
+                    .collect::<Result<Vec<_>>>()?,
+            )?
+            .module_docs("Entrypoint script function payloads."))
     }
 }
 
@@ -223,7 +227,7 @@ const moduleImpl = {{
             struct_types,
             function_payloads,
             if gen.has_entrypoints() {
-                "export * as entry from \"./entry.js\";"
+                "export * as entry from \"./entry.js\";\nexport * as payloads from \"./payloads.js\";"
             } else {
                 ""
             },

@@ -49,6 +49,10 @@ impl CliTool<()> for MoveTSGenTool {
                     module_dir.join("entry").with_extension("ts"),
                     gen.generate_entrypoint_module(&package_gen.ctx)?,
                 )?;
+                std::fs::write(
+                    module_dir.join("payloads").with_extension("ts"),
+                    gen.generate_entry_payloads_module(&package_gen.ctx)?,
+                )?;
             }
 
             std::fs::write(

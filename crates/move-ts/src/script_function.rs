@@ -9,10 +9,6 @@ use super::{CodeText, Codegen, CodegenContext};
 pub struct ScriptFunctionPayloadStruct<'info>(&'info ScriptFunctionType<'info>);
 
 impl<'info> ScriptFunctionPayloadStruct<'info> {
-    fn doc_link(&self) -> String {
-        format!("{{@link entry.{}}}", self.0.script.name)
-    }
-
     fn args_inline(&self, ctx: &CodegenContext) -> Result<CodeText> {
         Ok(ctx
             .try_join_with_separator(&self.0.script.args, "\n")?
@@ -26,7 +22,7 @@ impl<'info> ScriptFunctionPayloadStruct<'info> {
 
 impl<'info> Codegen for ScriptFunctionPayloadStruct<'info> {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
-        Ok(CodeText::new_type_export(
+        Ok(CodeText::new_fields_export(
             &self.0.payload_args_type_name(),
             &format!(
                 "{}{}",
@@ -48,7 +44,7 @@ impl<'info> Codegen for ScriptFunctionPayloadStruct<'info> {
                 },
             ),
         )
-        .docs(&format!("Payload arguments for {}.", self.doc_link()))
+        .docs(&format!("Payload arguments for {}.", self.0.doc_link()))
         .into())
     }
 }
@@ -89,8 +85,59 @@ impl<'info> ScriptFunctionType<'info> {
         }
     }
 
+    pub fn doc_link(&self) -> String {
+        format!("{{@link entry.{}}}", self.script.name)
+    }
+
     pub fn payload(&'info self) -> ScriptFunctionPayloadStruct<'info> {
         ScriptFunctionPayloadStruct(self)
+    }
+
+    pub fn generate_entry_payload_struct(&self, ctx: &CodegenContext) -> Result<CodeText> {
+        let arguments = format!(
+            "[{}]",
+            self.script
+                .args
+                .iter()
+                .map(|a| {
+                    let ts_type = &ctx.generate(&a.ty)?.to_string();
+                    let ts_type_fmt = if ts_type.starts_with("p.") {
+                        "string"
+                    } else {
+                        ts_type
+                    };
+                    Ok(format!("{}: {}", a.name, &ts_type_fmt))
+                })
+                .collect::<Result<Vec<_>>>()?
+                .join(", ")
+        );
+        let type_arguments = format!(
+            "[{}]",
+            self.script
+                .ty_args
+                .iter()
+                .map(|a| format!("{}: string", a))
+                .collect::<Vec<_>>()
+                .join(", ")
+        );
+
+        Ok(CodeText::new_fields_export(
+            &self.type_name,
+            &CodeText::try_join_with_separator(
+                &[
+                    CodeText::new("readonly type: \"script_function_payload\";"),
+                    CodeText::new(&format!(
+                        "readonly function: \"{}::{}\";",
+                        self.module.module_id, self.script.name
+                    )),
+                    CodeText::new(&format!("readonly arguments: {};", &arguments)),
+                    CodeText::new(&format!("readonly type_arguments: {};", &type_arguments)),
+                ],
+                "\n",
+            )?
+            .to_string(),
+        )
+        .docs(&format!("Payload for {}.", self.doc_link())))
     }
 
     pub fn payload_args_type_name(&'info self) -> String {
@@ -146,7 +193,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
         );
 
         Ok(format!(
-            r#"{}export const {} = ({}): p.ScriptFunctionPayload => ({{
+            r#"{}export const {} = ({}): payloads.{} => ({{
   type: "script_function_payload",
   function: "{}",
   type_arguments: {},
@@ -182,6 +229,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
             } else {
                 "".to_string()
             },
+            &self.type_name,
             &function,
             &type_arguments,
             &arguments

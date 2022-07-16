@@ -23,6 +23,12 @@ pub trait Codegen {
 #[derive(Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CodeText(String);
 
+impl Codegen for CodeText {
+    fn generate_typescript(&self, _ctx: &CodegenContext) -> Result<String> {
+        Ok(self.to_string())
+    }
+}
+
 impl AsRef<[u8]> for CodeText {
     fn as_ref(&self) -> &[u8] {
         self.0.as_ref()
@@ -48,8 +54,8 @@ impl CodeText {
         format!("export {{ {} }} from \"{}\";", name, path).into()
     }
 
-    pub fn new_type_export(name: &str, path: &str) -> Self {
-        format!("export type {} = {{\n{} }};", name, path).into()
+    pub fn new_fields_export(name: &str, fields: &str) -> Self {
+        format!("export type {} = {{\n{} }};", name, fields).into()
     }
 
     /// Creates a `export const {name} = {value} as const` statement.
