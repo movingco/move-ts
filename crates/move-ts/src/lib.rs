@@ -58,6 +58,10 @@ impl CodeText {
         format!("export type {} = {{\n{} }};", name, fields).into()
     }
 
+    pub fn append_newline(&self) -> Self {
+        CodeText(format!("{}\n", self.0))
+    }
+
     /// Creates a `export const {name} = {value} as const` statement.
     pub fn new_const_export<T>(name: &str, value: &T) -> Result<Self>
     where

@@ -126,18 +126,29 @@ impl<'info> ScriptFunctionType<'info> {
             &CodeText::try_join_with_separator(
                 &[
                     CodeText::new("readonly type: \"script_function_payload\";"),
-                    CodeText::new(&format!(
-                        "readonly function: \"{}::{}\";",
-                        self.module.module_id, self.script.name
-                    )),
+                    CodeText::new(&format!("readonly function: \"{}\";", self.full_name())),
                     CodeText::new(&format!("readonly arguments: {};", &arguments)),
                     CodeText::new(&format!("readonly type_arguments: {};", &type_arguments)),
                 ],
                 "\n",
             )?
+            .indent()
+            .append_newline()
             .to_string(),
         )
-        .docs(&format!("Payload for {}.", self.doc_link())))
+        .docs(&format!(
+            "Script function payload for `{}`.{}",
+            self.full_name(),
+            self.script
+                .doc
+                .as_ref()
+                .map(|s| format!("\n\n{}", s))
+                .unwrap_or_default()
+        )))
+    }
+
+    pub fn full_name(&self) -> String {
+        format!("{}::{}", self.module.module_id, self.script.name)
     }
 
     pub fn payload_args_type_name(&'info self) -> String {
