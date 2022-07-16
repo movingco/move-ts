@@ -159,6 +159,21 @@
 <span id="154">154</span>
 <span id="155">155</span>
 <span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Generates TypeScript code from a Move IDL.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">format</span>;
@@ -183,6 +198,12 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CodeText</span>(<span class="ident">String</span>);
+
+<span class="kw">impl</span> <span class="ident">Codegen</span> <span class="kw">for</span> <span class="ident">CodeText</span> {
+    <span class="kw">fn</span> <span class="ident">generate_typescript</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_ctx</span>: <span class="kw-2">&amp;</span><span class="ident">CodegenContext</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">to_string</span>())
+    }
+}
 
 <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CodeText</span> {
     <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
@@ -209,6 +230,15 @@
         <span class="macro">format!</span>(<span class="string">&quot;export {{ {} }} from \&quot;{}\&quot;;&quot;</span>, <span class="ident">name</span>, <span class="ident">path</span>).<span class="ident">into</span>()
     }
 
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_fields_export</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">fields</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="self">Self</span> {
+        <span class="macro">format!</span>(<span class="string">&quot;export type {} = {{\n{} }};&quot;</span>, <span class="ident">name</span>, <span class="ident">fields</span>).<span class="ident">into</span>()
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append_newline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident">CodeText</span>(<span class="macro">format!</span>(<span class="string">&quot;{}\n&quot;</span>, <span class="self">self</span>.<span class="number">0</span>))
+    }
+
+    <span class="doccomment">/// Creates a `export const {name} = {value} as const` statement.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_const_export</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">Serialize</span>,
