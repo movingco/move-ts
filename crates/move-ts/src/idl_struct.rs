@@ -12,8 +12,10 @@ fn generate_struct_fields(s: &IDLStruct, ctx: &CodegenContext) -> Result<CodeTex
                 ctx,
                 &s.type_params
                     .iter()
-                    .map(|t| format!("_{}", t))
+                    .filter(|t| !t.is_phantom)
+                    .map(|t| format!("_{}", t.name))
                     .collect::<Vec<_>>(),
+                true,
             )?;
             Ok(format!(
                 "{}{}: {};",
@@ -42,14 +44,15 @@ impl Codegen for IDLStruct {
             return Ok("".to_string());
         }
 
-        let generics = if self.type_params.is_empty() {
+        let generics = if !self.type_params.iter().any(|p| !p.is_phantom) {
             "".to_string()
         } else {
             format!(
                 "<{}>",
                 self.type_params
                     .iter()
-                    .map(|p| format!("_{} = unknown", p))
+                    .filter(|p| !p.is_phantom)
+                    .map(|p| format!("_{} = unknown", p.name))
                     .collect::<Vec<_>>()
                     .join(", ")
             )

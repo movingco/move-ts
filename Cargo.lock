@@ -9,6 +9,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3"
 
 [[package]]
+name = "account-address"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ca1922616eb11c53776997d7da978acddc3741dfda189fb6287b2e78f18498d5"
+dependencies = [
+ "anyhow",
+ "mv-core-types",
+ "schemars",
+ "serde 1.0.139",
+]
+
+[[package]]
 name = "ahash"
 version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -307,6 +319,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4615dd7b5c2468d6c89432ebe22583879c0ee11bdd929c5ddc5b0d6113b6210d"
 
 [[package]]
+name = "dyn-clone"
+version = "1.0.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d07a982d1fb29db01e5a59b1918e03da4df7297eaeee7686ac45542fd4e59c8"
+
+[[package]]
 name = "either"
 version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -314,9 +332,9 @@ checksum = "3f107b87b6afc2a64fd13cac55fe06d6c8859f12d4b14cbcdd2c67d0976781be"
 
 [[package]]
 name = "errmap"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a44a8cc9e2d4683b5ef4289595426855af90ea7c730b036431748802ff79d3be"
+checksum = "5a386c063de2a9a08c378bceb6ac3c5795ab2c74ab66957cb35e954f84e18710"
 dependencies = [
  "module-id",
  "mv-core-types",
@@ -570,12 +588,13 @@ dependencies = [
 
 [[package]]
 name = "module-id"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f207386fd84cfec98bfc45d54d83d1512666382e3e18a30d2d75879b9daa86b"
+checksum = "98ca0f7391368b642f90ba278d527965f4a789bdee288b484d02b9e024cb3591"
 dependencies = [
  "anyhow",
  "mv-core-types",
+ "schemars",
  "serde 1.0.139",
 ]
 
@@ -644,10 +663,11 @@ dependencies = [
 
 [[package]]
 name = "move-idl"
-version = "0.2.3"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "961a945ab259f28620545764bc55d20e4c750725139811fe557503b0edb8f5af"
+checksum = "16a087e44ca3b184e631ad8c3512ccf94fa3af6df5a46018964e171ea2eb18b2"
 dependencies = [
+ "account-address",
  "anyhow",
  "docstring",
  "errmapgen",
@@ -664,13 +684,14 @@ dependencies = [
 
 [[package]]
 name = "move-idl-types"
-version = "0.2.3"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13466f5ef6ebbfa8111d8d6ce8919c0ee91ac683cfe8fc6d8e8a79f8908c2382"
+checksum = "e62a5b0f31580e2e5a735e57e623eb826f71fd54382a90caa7bf97bbd53404ba"
 dependencies = [
+ "account-address",
  "errmap",
  "module-id",
- "mv-core-types",
+ "schemars",
  "serde 1.0.139",
  "struct-tag",
 ]
@@ -1392,6 +1413,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "schemars"
+version = "0.8.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1847b767a3d62d95cbf3d8a9f0e421cf57a0d8aa4f411d4b16525afb0284d4ed"
+dependencies = [
+ "dyn-clone",
+ "schemars_derive",
+ "serde 1.0.139",
+ "serde_json",
+]
+
+[[package]]
+name = "schemars_derive"
+version = "0.8.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af4d7e1b012cb3d9129567661a63755ea4b8a7386d339dc945ae187e403c6743"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "serde_derive_internals",
+ "syn",
+]
+
+[[package]]
 name = "scopeguard"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1459,6 +1504,17 @@ name = "serde_derive"
 version = "1.0.139"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dc1d3230c1de7932af58ad8ffbe1d784bd55efd5a9d84ac24f69c72d83543dfb"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "serde_derive_internals"
+version = "0.26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "85bf8229e7920a9f636479437026331ce11aa132b4dde37d121944a44d6e5f3c"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1580,12 +1636,13 @@ checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
 
 [[package]]
 name = "struct-tag"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd184c953c224262486a531464199d0522544d410f195beeed7d2f5aa9729947"
+checksum = "c9da39226723f909b827d4f39944747aafd7d8bb5bffe262bb796db1d66720ea"
 dependencies = [
  "anyhow",
  "mv-core-types",
+ "schemars",
  "serde 1.0.139",
 ]
 

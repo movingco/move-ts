@@ -7,6 +7,7 @@ fn generate_field_with_type_args(
     ty: &IDLField,
     ctx: &CodegenContext,
     type_args: &[String],
+    parse_args: bool,
 ) -> Result<String> {
     Ok(format!(
         "{}{}: {};",
@@ -15,7 +16,7 @@ fn generate_field_with_type_args(
             .map(|doc| format!("\n{}", gen_doc_string(doc)))
             .unwrap_or_default(),
         ty.name,
-        generate_idl_type_with_type_args(&ty.ty, ctx, type_args)?
+        generate_idl_type_with_type_args(&ty.ty, ctx, type_args, parse_args)?
     ))
 }
 
@@ -23,6 +24,7 @@ fn generate_struct_with_type_args(
     ty: &IDLStructType,
     ctx: &CodegenContext,
     type_args: &[String],
+    parse_args: bool,
 ) -> Result<String> {
     let struct_def = ctx
         .pkg
@@ -34,7 +36,7 @@ fn generate_struct_with_type_args(
     let fields_gen: CodeText = struct_def
         .fields
         .iter()
-        .map(|v| generate_field_with_type_args(v, ctx, type_args))
+        .map(|v| generate_field_with_type_args(v, ctx, type_args, parse_args))
         .collect::<Result<Vec<_>>>()?
         .join("\n")
         .into();
@@ -46,8 +48,9 @@ pub(crate) fn generate_idl_type_with_type_args(
     idl_type: &IDLType,
     ctx: &CodegenContext,
     type_args: &[String],
+    parse_args: bool,
 ) -> Result<String> {
-    Ok(match idl_type {
+    let result = match idl_type {
         IDLType::Bool => "boolean".to_string(),
         IDLType::U8 => "number".to_string(),
         IDLType::U64 => "p.U64".to_string(),
@@ -58,7 +61,7 @@ pub(crate) fn generate_idl_type_with_type_args(
             IDLType::U8 => "p.ByteString".to_string(),
             inner => format!(
                 "ReadonlyArray<{}>",
-                generate_idl_type_with_type_args(&inner, ctx, type_args)?
+                generate_idl_type_with_type_args(&inner, ctx, type_args, parse_args)?
             ),
         },
         IDLType::Struct(inner) => {
@@ -68,9 +71,9 @@ pub(crate) fn generate_idl_type_with_type_args(
                 let next_type_args = inner
                     .ty_args
                     .iter()
-                    .map(|arg| generate_idl_type_with_type_args(arg, ctx, type_args))
+                    .map(|arg| generate_idl_type_with_type_args(arg, ctx, type_args, parse_args))
                     .collect::<Result<Vec<_>>>()?;
-                generate_struct_with_type_args(inner, ctx, &next_type_args)?
+                generate_struct_with_type_args(inner, ctx, &next_type_args, parse_args)?
             }
         }
         IDLType::TypeParam(v) => {
@@ -81,11 +84,16 @@ pub(crate) fn generate_idl_type_with_type_args(
             }
         }
         IDLType::Tuple(_) => todo!(),
-    })
+    };
+    if result.starts_with("p.") {
+        Ok("string".to_string())
+    } else {
+        Ok(result)
+    }
 }
 
 impl Codegen for IDLType {
     fn generate_typescript(&self, ctx: &CodegenContext) -> Result<String> {
-        generate_idl_type_with_type_args(self, ctx, &[])
+        generate_idl_type_with_type_args(self, ctx, &[], true)
     }
 }

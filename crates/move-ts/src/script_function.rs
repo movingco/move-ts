@@ -2,7 +2,10 @@ use anyhow::*;
 use heck::ToPascalCase;
 use move_idl::{IDLArgument, IDLModule, IDLScriptFunction};
 
-use crate::format::{gen_doc_string, indent};
+use crate::{
+    format::{gen_doc_string, indent},
+    idl_type::generate_idl_type_with_type_args,
+};
 
 use super::{CodeText, Codegen, CodegenContext};
 
@@ -100,13 +103,8 @@ impl<'info> ScriptFunctionType<'info> {
                 .args
                 .iter()
                 .map(|a| {
-                    let ts_type = &ctx.generate(&a.ty)?.to_string();
-                    let ts_type_fmt = if ts_type.starts_with("p.") {
-                        "string"
-                    } else {
-                        ts_type
-                    };
-                    Ok(format!("{}: {}", a.name, &ts_type_fmt))
+                    let ts_type = &generate_idl_type_with_type_args(&a.ty, ctx, &[], false)?;
+                    Ok(format!("{}: {}", a.name, &ts_type))
                 })
                 .collect::<Result<Vec<_>>>()?
                 .join(", ")

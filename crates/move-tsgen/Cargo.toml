@@ -27,7 +27,7 @@ anyhow = "1.0.42"
 async-trait = "0.1.56"
 clap = { version = "3.2", features = ["derive"] }
 json-cli = "0.1.0"
-move-idl = "0.2.2"
+move-idl = "0.3"
 move-package = { version = "0.1.6", package = "mv-package" }
 move-core-types = { version = "0.1.6", package = "mv-core-types" }
 move-ts = { version = "0.2.0", path = "../move-ts" }
