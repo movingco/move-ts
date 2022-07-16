@@ -3,6 +3,37 @@ use crate::{format::gen_doc_string, CodeText};
 use anyhow::*;
 use move_idl::{IDLField, IDLStructType, IDLType};
 
+pub fn serialize_arg(arg: &str, ty: &IDLType, ctx: &CodegenContext) -> Result<String> {
+    let ts_type = &ctx.generate(ty)?.to_string();
+    if ts_type.starts_with("ReadonlyArray") {
+        if let IDLType::Vector(inner) = ty {
+            let inner_arg = format!("inner_{}", arg.replace('.', "__"));
+            let inner_serialized = serialize_arg(&inner_arg, inner, ctx)?;
+            Ok(format!(
+                "{}.map(({}) => {})",
+                arg, inner_arg, inner_serialized
+            ))
+        } else {
+            anyhow::bail!("Expected vector type for {}", arg)
+        }
+    } else {
+        let serializer = if ts_type == "p.U64" {
+            "p.serializers.u64"
+        } else if ts_type == "p.U128" {
+            "p.serializers.u128"
+        } else if ts_type == "p.HexStringArg"
+            || ts_type == "p.RawAddress"
+            || ts_type == "p.RawSigner"
+            || ts_type == "p.ByteString"
+        {
+            "p.serializers.hexString"
+        } else {
+            return Ok(arg.to_string());
+        };
+        Ok(format!("{}({})", serializer, &arg))
+    }
+}
+
 fn generate_field_with_type_args(
     ty: &IDLField,
     ctx: &CodegenContext,

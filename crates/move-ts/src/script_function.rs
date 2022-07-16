@@ -4,7 +4,7 @@ use move_idl::{IDLArgument, IDLModule, IDLScriptFunction};
 
 use crate::{
     format::{gen_doc_string, indent},
-    idl_type::generate_idl_type_with_type_args,
+    idl_type::{generate_idl_type_with_type_args, serialize_arg},
 };
 
 use super::{CodeText, Codegen, CodegenContext};
@@ -181,21 +181,7 @@ impl<'info> Codegen for ScriptFunctionType<'info> {
                 .iter()
                 .map(|a| {
                     let inner = format!("args.{}", a.name);
-                    let ts_type = &ctx.generate(&a.ty)?.to_string();
-                    let serializer = if ts_type == "p.U64" {
-                        "p.serializers.u64"
-                    } else if ts_type == "p.U128" {
-                        "p.serializers.u128"
-                    } else if ts_type == "p.HexStringArg"
-                        || ts_type == "p.RawAddress"
-                        || ts_type == "p.RawSigner"
-                        || ts_type == "p.ByteString"
-                    {
-                        "p.serializers.hexString"
-                    } else {
-                        return Ok(inner);
-                    };
-                    Ok(format!("{}({})", serializer, &inner))
+                    serialize_arg(&inner, &a.ty, ctx)
                 })
                 .collect::<Result<Vec<_>>>()?
                 .join(", ")
