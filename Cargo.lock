@@ -742,7 +742,7 @@ dependencies = [
 
 [[package]]
 name = "move-ts"
-version = "0.2.2"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "heck 0.4.0",
@@ -754,7 +754,7 @@ dependencies = [
 
 [[package]]
 name = "move-tsgen"
-version = "0.2.2"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "async-trait",
