@@ -281,7 +281,7 @@
     <span class="ident">error</span>: <span class="ident">IDLError</span>,
 }
 
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IDLModuleGenerator</span><span class="op">&lt;</span><span class="lifetime">&#39;info</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;info</span> <span class="ident">IDLModule</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IDLModuleGenerator</span><span class="op">&lt;</span><span class="lifetime">&#39;info</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;info</span> <span class="ident">IDLModule</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;info</span><span class="op">&gt;</span> <span class="ident">IDLModuleGenerator</span><span class="op">&lt;</span><span class="lifetime">&#39;info</span><span class="op">&gt;</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">module</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;info</span> <span class="ident">IDLModule</span>) -&gt; <span class="self">Self</span> {
@@ -294,7 +294,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_module_doc</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
         <span class="ident">gen_doc_string</span>(
-            <span class="kw-2">&amp;</span><span class="macro">vec!</span>[
+            <span class="kw-2">&amp;</span>[
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">doc</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>(),
                 <span class="self">self</span>.<span class="ident">generate_module_header</span>(),
                 <span class="string">&quot;@module&quot;</span>.<span class="ident">to_string</span>(),
