@@ -1,6 +1,6 @@
 [package]
 name = "move-ts"
-version = "0.3.1"
+version = "0.3.2"
 description = "Generates TypeScript code from a Move IDL."
 homepage = "https://moving.wtf"
 repository = "https://github.com/movingco/move-ts"
