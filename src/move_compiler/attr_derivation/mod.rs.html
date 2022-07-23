@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-compiler-0.1.6/src/attr_derivation/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-compiler-0.2.1/src/attr_derivation/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../move_compiler/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -214,6 +214,25 @@
 <span id="209">209</span>
 <span id="210">210</span>
 <span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright (c) The Diem Core Contributors</span>
 <span class="comment">// Copyright (c) The Move Contributors</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -226,7 +245,8 @@
     <span class="ident">parser::ast</span>::{
         <span class="ident">Attribute</span>, <span class="ident">AttributeValue</span>, <span class="ident">Attribute_</span>, <span class="ident">Attributes</span>, <span class="ident">Definition</span>, <span class="ident">Exp</span>, <span class="ident">Exp_</span>, <span class="ident">Function</span>,
         <span class="ident">FunctionBody_</span>, <span class="ident">FunctionName</span>, <span class="ident">FunctionSignature</span>, <span class="ident">LeadingNameAccess_</span>, <span class="ident">NameAccessChain</span>,
-        <span class="ident">NameAccessChain_</span>, <span class="ident">Type</span>, <span class="ident">Type_</span>, <span class="ident">Value_</span>, <span class="ident">Var</span>, <span class="ident">Visibility</span>,
+        <span class="ident">NameAccessChain_</span>, <span class="ident">StructDefinition</span>, <span class="ident">StructFields</span>, <span class="ident">StructName</span>, <span class="ident">Type</span>, <span class="ident">Type_</span>, <span class="ident">Value_</span>, <span class="ident">Var</span>,
+        <span class="ident">Visibility</span>,
     },
     <span class="ident">shared</span>::{<span class="ident">CompilationEnv</span>, <span class="ident">Name</span>, <span class="ident">NamedAddressMap</span>},
 };
@@ -236,6 +256,8 @@
 
 <span class="kw">const</span> <span class="ident">EVM_FLAVOR</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;evm&quot;</span>;
 <span class="kw">const</span> <span class="ident">ASYNC_FLAVOR</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;async&quot;</span>;
+
+<span class="kw">const</span> <span class="ident">EVENT_ATTR</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;event&quot;</span>;
 
 <span class="doccomment">/// Entry point for deriving definitions from attributes for the given module. Depending on the</span>
 <span class="doccomment">/// flavor specified via the flags, this is dispatching to the according attribute processor.</span>
@@ -346,6 +368,22 @@
             <span class="ident">loc</span>,
             <span class="ident">FunctionBody_::Defined</span>((<span class="macro">vec!</span>[], <span class="macro">vec!</span>[], <span class="prelude-val">None</span>, <span class="ident">Box::new</span>(<span class="prelude-val">Some</span>(<span class="ident">def</span>)))),
         ),
+    }
+}
+
+<span class="doccomment">/// Helper to create a new struct declaration.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_struct</span>(<span class="ident">loc</span>: <span class="ident">Loc</span>, <span class="ident">name</span>: <span class="ident">StructName</span>, <span class="ident">fields</span>: <span class="ident">StructFields</span>) -&gt; <span class="ident">StructDefinition</span> {
+    <span class="ident">StructDefinition</span> {
+        <span class="ident">attributes</span>: <span class="macro">vec!</span>[<span class="ident">sp</span>(
+            <span class="comment">// #[event]</span>
+            <span class="ident">loc</span>,
+            <span class="macro">vec!</span>[<span class="ident">new_attr</span>(<span class="ident">loc</span>, <span class="ident">EVENT_ATTR</span>, <span class="macro">vec!</span>[])],
+        )],
+        <span class="ident">loc</span>,
+        <span class="ident">abilities</span>: <span class="macro">vec!</span>[],
+        <span class="ident">name</span>,
+        <span class="ident">type_parameters</span>: <span class="macro">vec!</span>[],
+        <span class="ident">fields</span>,
     }
 }
 

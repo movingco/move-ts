@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["AccountAddressData","Wrapper around [AccountAddress] which is serialized as a string."]]});
+initSidebarItems({"struct":[["AccountAddress","A struct that represents an account address."],["AccountAddressData","Wrapper around [AccountAddress] which is serialized as a string."]]});

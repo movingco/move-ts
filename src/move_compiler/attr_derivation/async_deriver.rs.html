@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-compiler-0.1.6/src/attr_derivation/async_deriver.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>async_deriver.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/mv-compiler-0.2.1/src/attr_derivation/async_deriver.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>async_deriver.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../move_compiler/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -297,6 +297,31 @@
 <span id="292">292</span>
 <span id="293">293</span>
 <span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright (c) The Diem Core Contributors</span>
 <span class="comment">// Copyright (c) The Move Contributors</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -304,12 +329,12 @@
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">attr_derivation</span>::{
         <span class="ident">find_attr_slice</span>, <span class="ident">new_borrow_exp</span>, <span class="ident">new_call_exp</span>, <span class="ident">new_full_name</span>, <span class="ident">new_fun</span>, <span class="ident">new_simple_name_exp</span>,
-        <span class="ident">new_simple_type</span>, <span class="ident">new_u64</span>, <span class="ident">new_var</span>,
+        <span class="ident">new_simple_type</span>, <span class="ident">new_struct</span>, <span class="ident">new_u64</span>, <span class="ident">new_var</span>,
     },
     <span class="ident">diag</span>,
     <span class="ident">parser::ast</span>::{
-        <span class="ident">Definition</span>, <span class="ident">Exp</span>, <span class="ident">Exp_</span>, <span class="ident">Function</span>, <span class="ident">FunctionName</span>, <span class="ident">LeadingNameAccess_</span>, <span class="ident">ModuleDefinition</span>,
-        <span class="ident">ModuleMember</span>, <span class="ident">NameAccessChain_</span>, <span class="ident">StructName</span>, <span class="ident">Type</span>, <span class="ident">Type_</span>, <span class="ident">Visibility</span>,
+        <span class="ident">Definition</span>, <span class="ident">Exp</span>, <span class="ident">Exp_</span>, <span class="ident">Field</span>, <span class="ident">Function</span>, <span class="ident">FunctionName</span>, <span class="ident">LeadingNameAccess_</span>, <span class="ident">ModuleDefinition</span>,
+        <span class="ident">ModuleMember</span>, <span class="ident">NameAccessChain_</span>, <span class="ident">StructFields</span>, <span class="ident">StructName</span>, <span class="ident">Type</span>, <span class="ident">Type_</span>, <span class="ident">Visibility</span>,
     },
     <span class="ident">shared</span>::{<span class="ident">CompilationEnv</span>, <span class="ident">NamedAddressMap</span>},
 };
@@ -349,6 +374,7 @@
 
     <span class="comment">// Go over the functions marked as #[message]</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_funs</span> <span class="op">=</span> <span class="macro">vec!</span>[];
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_structs</span> <span class="op">=</span> <span class="macro">vec!</span>[];
     <span class="kw">for</span> <span class="ident">mem</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">mod_def</span>.<span class="ident">members</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">ModuleMember::Function</span>(<span class="ident">fun_def</span>) <span class="op">=</span> <span class="ident">mem</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">attr</span>) <span class="op">=</span> <span class="ident">find_attr_slice</span>(<span class="kw-2">&amp;</span><span class="ident">fun_def</span>.<span class="ident">attributes</span>, <span class="ident">MESSAGE_ATTR</span>) {
@@ -360,6 +386,7 @@
                 <span class="comment">// Replace the first parameter which is a reference to the actor state with an</span>
                 <span class="comment">// actor address.</span>
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sign</span> <span class="op">=</span> <span class="ident">fun_def</span>.<span class="ident">signature</span>.<span class="ident">clone</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fields</span> <span class="op">=</span> <span class="macro">vec!</span>[];
                 <span class="kw">if</span> <span class="ident">sign</span>.<span class="ident">parameters</span>.<span class="ident">is_empty</span>() {
                     <span class="ident">env</span>.<span class="ident">add_diag</span>(<span class="macro">diag!</span>(
                         <span class="ident">Derivation::DeriveFailed</span>,
@@ -375,6 +402,10 @@
                     <span class="ident">new_var</span>(<span class="ident">loc</span>, <span class="string">&quot;actor&quot;</span>),
                     <span class="ident">new_simple_type</span>(<span class="ident">loc</span>, <span class="string">&quot;address&quot;</span>, <span class="macro">vec!</span>[]),
                 );
+                <span class="ident">fields</span>.<span class="ident">push</span>((
+                    <span class="ident">Field</span>(<span class="ident">sp</span>(<span class="ident">loc</span>, <span class="ident">Symbol::from</span>(<span class="string">&quot;actor&quot;</span>))),
+                    <span class="ident">new_simple_type</span>(<span class="ident">loc</span>, <span class="string">&quot;address&quot;</span>, <span class="macro">vec!</span>[]),
+                ));
 
                 <span class="comment">// Create a call `Actor::send__&lt;N&gt;(actor, message_hash, BCS::to_bytes(&amp;arg1), ..)`.</span>
                 <span class="kw">let</span> <span class="ident">param_count</span> <span class="op">=</span> <span class="ident">sign</span>.<span class="ident">parameters</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span>;
@@ -392,6 +423,11 @@
                 }
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">new_simple_name_exp</span>(<span class="ident">loc</span>, <span class="ident">sp</span>(<span class="ident">loc</span>, <span class="ident">Symbol::from</span>(<span class="string">&quot;actor&quot;</span>)))];
                 <span class="ident">args</span>.<span class="ident">push</span>(<span class="ident">message_hash</span>(<span class="ident">env</span>, <span class="ident">address_map</span>, <span class="ident">loc</span>, <span class="ident">mod_def</span>, <span class="ident">fun_def</span>));
+                <span class="ident">fields</span>.<span class="ident">push</span>((
+                    <span class="ident">Field</span>(<span class="ident">sp</span>(<span class="ident">loc</span>, <span class="ident">Symbol::from</span>(<span class="string">&quot;message_hash&quot;</span>))),
+                    <span class="ident">new_simple_type</span>(<span class="ident">loc</span>, <span class="string">&quot;u64&quot;</span>, <span class="macro">vec!</span>[]),
+                ));
+
                 <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">param_count</span> {
                     <span class="kw">let</span> <span class="ident">name_exp</span> <span class="op">=</span> <span class="ident">new_simple_name_exp</span>(<span class="ident">loc</span>, <span class="ident">sign</span>.<span class="ident">parameters</span>[<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="number">0</span> .<span class="number">0</span>);
                     <span class="ident">args</span>.<span class="ident">push</span>(<span class="ident">new_call_exp</span>(
@@ -399,6 +435,9 @@
                         <span class="ident">new_full_name</span>(<span class="ident">loc</span>, <span class="string">&quot;std&quot;</span>, <span class="string">&quot;bcs&quot;</span>, <span class="string">&quot;to_bytes&quot;</span>),
                         <span class="macro">vec!</span>[<span class="ident">new_borrow_exp</span>(<span class="ident">loc</span>, <span class="ident">name_exp</span>)],
                     ));
+                    <span class="kw">let</span> <span class="ident">var</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">sign</span>.<span class="ident">parameters</span>[<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="number">0</span>;
+                    <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">sign</span>.<span class="ident">parameters</span>[<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>].<span class="number">1</span>;
+                    <span class="ident">fields</span>.<span class="ident">push</span>((<span class="ident">Field</span>(<span class="ident">sp</span>(<span class="ident">loc</span>, <span class="ident">var</span>.<span class="number">0</span>.<span class="ident">value</span>)), <span class="ident">ty</span>.<span class="ident">clone</span>()));
                 }
                 <span class="kw">let</span> <span class="ident">internal_send_name</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;send__{}&quot;</span>, <span class="ident">param_count</span>);
                 <span class="kw">let</span> <span class="ident">send_call</span> <span class="op">=</span> <span class="ident">new_call_exp</span>(
@@ -416,11 +455,22 @@
                     <span class="ident">sign</span>,
                     <span class="ident">send_call</span>,
                 ));
+
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">struct_name</span> <span class="op">=</span> <span class="ident">fun_def</span>.<span class="ident">name</span>.<span class="ident">to_string</span>();
+                <span class="ident">struct_name</span>.<span class="ident">replace_range</span>(<span class="number">0</span>..<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="ident">struct_name</span>[<span class="number">0</span>..<span class="number">1</span>].<span class="ident">to_uppercase</span>());
+                <span class="ident">new_structs</span>.<span class="ident">push</span>(<span class="ident">new_struct</span>(
+                    <span class="ident">loc</span>,
+                    <span class="ident">StructName</span>(<span class="ident">sp</span>(<span class="ident">loc</span>, <span class="ident">Symbol::from</span>(<span class="ident">struct_name</span>))),
+                    <span class="ident">StructFields::Defined</span>(<span class="ident">fields</span>),
+                ));
             }
         }
     }
     <span class="kw">for</span> <span class="ident">fun_def</span> <span class="kw">in</span> <span class="ident">new_funs</span> {
         <span class="ident">mod_def</span>.<span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">ModuleMember::Function</span>(<span class="ident">fun_def</span>))
+    }
+    <span class="kw">for</span> <span class="ident">st_def</span> <span class="kw">in</span> <span class="ident">new_structs</span> {
+        <span class="ident">mod_def</span>.<span class="ident">members</span>.<span class="ident">push</span>(<span class="ident">ModuleMember::Struct</span>(<span class="ident">st_def</span>))
     }
 }
 

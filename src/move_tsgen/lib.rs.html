@@ -89,6 +89,10 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
 </pre><pre class="rust"><code><span class="doccomment">//! CLI for parsing an IDL from a Move package.</span>
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">path::PathBuf</span>};
 
@@ -119,7 +123,7 @@
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span>(<span class="self">self</span>) -&gt; <span class="ident">CliTypedResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">additional_named_addresses</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
         <span class="ident">additional_named_addresses</span>
-            .<span class="ident">insert</span>(<span class="string">&quot;Std&quot;</span>.<span class="ident">to_string</span>(), <span class="macro">static_address::static_address!</span>(<span class="string">&quot;0x1&quot;</span>));
+            .<span class="ident">insert</span>(<span class="string">&quot;std&quot;</span>.<span class="ident">to_string</span>(), <span class="macro">static_address::static_address!</span>(<span class="string">&quot;0x1&quot;</span>));
         <span class="kw">let</span> <span class="ident">build_config_std</span> <span class="op">=</span> <span class="ident">BuildConfig</span> {
             <span class="ident">generate_docs</span>: <span class="bool-val">true</span>,
             <span class="ident">generate_abis</span>: <span class="bool-val">true</span>,
@@ -132,13 +136,17 @@
 
         <span class="kw">let</span> <span class="ident">package_gen</span> <span class="op">=</span> <span class="ident">IDLPackageGenerator::new</span>(<span class="kw-2">&amp;</span><span class="ident">idl</span>, <span class="self">self</span>.<span class="ident">with_dependencies</span>);
         <span class="kw">for</span> <span class="ident">gen</span> <span class="kw">in</span> <span class="ident">package_gen</span>.<span class="ident">module_generators</span>() {
-            <span class="kw">let</span> <span class="ident">module_dir</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">out_dir</span>.<span class="ident">join</span>(<span class="ident">gen</span>.<span class="ident">module</span>.<span class="ident">module_id</span>.<span class="ident">name</span>());
+            <span class="kw">let</span> <span class="ident">module_dir</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">out_dir</span>.<span class="ident">join</span>(<span class="ident">gen</span>.<span class="ident">module</span>.<span class="ident">module_id</span>.<span class="ident">name</span>().<span class="ident">to_string</span>());
             <span class="ident">std::fs::create_dir_all</span>(<span class="ident">module_dir</span>)<span class="question-mark">?</span>;
 
             <span class="kw">if</span> <span class="ident">gen</span>.<span class="ident">has_entrypoints</span>() {
                 <span class="ident">std::fs::write</span>(
                     <span class="ident">module_dir</span>.<span class="ident">join</span>(<span class="string">&quot;entry&quot;</span>).<span class="ident">with_extension</span>(<span class="string">&quot;ts&quot;</span>),
                     <span class="ident">gen</span>.<span class="ident">generate_entrypoint_module</span>(<span class="kw-2">&amp;</span><span class="ident">package_gen</span>.<span class="ident">ctx</span>)<span class="question-mark">?</span>,
+                )<span class="question-mark">?</span>;
+                <span class="ident">std::fs::write</span>(
+                    <span class="ident">module_dir</span>.<span class="ident">join</span>(<span class="string">&quot;entryNames&quot;</span>).<span class="ident">with_extension</span>(<span class="string">&quot;ts&quot;</span>),
+                    <span class="ident">gen</span>.<span class="ident">generate_entry_names_module</span>(<span class="kw-2">&amp;</span><span class="ident">package_gen</span>.<span class="ident">ctx</span>)<span class="question-mark">?</span>,
                 )<span class="question-mark">?</span>;
                 <span class="ident">std::fs::write</span>(
                     <span class="ident">module_dir</span>.<span class="ident">join</span>(<span class="string">&quot;payloads&quot;</span>).<span class="ident">with_extension</span>(<span class="string">&quot;ts&quot;</span>),
