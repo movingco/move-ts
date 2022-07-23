@@ -58,17 +58,21 @@ impl Codegen for IDLStruct {
             )
         };
 
-        Ok(format!(
-            r#"{}export type {}Data{} = {{
+        Ok(CodeText::new(&format!(
+            r#"export interface I{}{} {{
 {}
 }};"#,
-            self.doc
-                .as_ref()
-                .map(|d| gen_doc_string(d))
-                .unwrap_or_default(),
             self.name.name,
             generics,
             generate_struct_fields(self, ctx)?.indent()
         ))
+        .docs(
+            &self
+                .doc
+                .as_ref()
+                .map(|d| gen_doc_string(d))
+                .unwrap_or_default(),
+        )
+        .into())
     }
 }
