@@ -41,7 +41,7 @@ impl CliTool<()> for MoveTSGenTool {
 
         let package_gen = IDLPackageGenerator::new(&idl, self.with_dependencies);
         for gen in package_gen.module_generators() {
-            let module_dir = &self.out_dir.join(gen.module.module_id.name());
+            let module_dir = &self.out_dir.join(gen.module.module_id.name().to_string());
             std::fs::create_dir_all(module_dir)?;
 
             if gen.has_entrypoints() {
