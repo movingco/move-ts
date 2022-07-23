@@ -145,6 +145,14 @@ impl<'info> ScriptFunctionType<'info> {
         )))
     }
 
+    pub fn doc(&self) -> Option<String> {
+        self.script.doc.clone()
+    }
+
+    pub fn name(&self) -> &str {
+        &self.script.name
+    }
+
     pub fn full_name(&self) -> String {
         format!("{}::{}", self.module.module_id, self.script.name)
     }

@@ -125,6 +125,21 @@ impl<'info> IDLModuleGenerator<'info> {
             )?
             .module_docs("Entrypoint script function payloads."))
     }
+
+    pub fn generate_entry_names_module(&self, ctx: &CodegenContext) -> Result<CodeText> {
+        Ok(ctx
+            .try_join(
+                &self
+                    .script_fns
+                    .iter()
+                    .map(|f| {
+                        Ok(CodeText::new_const_export(f.name(), &f.full_name())?
+                            .docs(&format!("Script function type for `{}`.", f.full_name())))
+                    })
+                    .collect::<Result<Vec<CodeText>>>()?,
+            )?
+            .module_docs("Names of all script functions."))
+    }
 }
 
 impl Codegen for IDLModule {
@@ -227,9 +242,16 @@ const moduleImpl = {{
             struct_types,
             function_payloads,
             if gen.has_entrypoints() {
-                "export * as entry from \"./entry.js\";\nexport * as payloads from \"./payloads.js\";"
+                CodeText::try_join_with_separator(
+                    &[
+                        CodeText::new_reexport("entry", "./entry.js"),
+                        CodeText::new_reexport("payloads", "./payloads.js"),
+                        CodeText::new_reexport("entryNames", "./entryNames.js"),
+                    ],
+                    "\n",
+                )?
             } else {
-                ""
+                CodeText::new("")
             },
             self.module_id.address().to_hex_literal(),
             self.module_id.short_str_lossless(),
