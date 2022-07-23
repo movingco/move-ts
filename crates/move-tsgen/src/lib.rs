@@ -28,7 +28,7 @@ impl CliTool<()> for MoveTSGenTool {
     async fn execute(self) -> CliTypedResult<()> {
         let mut additional_named_addresses = BTreeMap::new();
         additional_named_addresses
-            .insert("Std".to_string(), static_address::static_address!("0x1"));
+            .insert("std".to_string(), static_address::static_address!("0x1"));
         let build_config_std = BuildConfig {
             generate_docs: true,
             generate_abis: true,

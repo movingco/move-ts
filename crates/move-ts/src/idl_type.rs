@@ -96,7 +96,9 @@ pub(crate) fn generate_idl_type_with_type_args(
             ),
         },
         IDLType::Struct(inner) => {
-            if inner.name.to_string() == *"0x1::ASCII::String" {
+            if inner.name.to_string() == *"0x1::ASCII::String"
+                || inner.name.to_string() == *"0x1::string::String"
+            {
                 "string".to_string()
             } else {
                 let next_type_args = inner
