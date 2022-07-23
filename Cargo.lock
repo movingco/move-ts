@@ -744,6 +744,7 @@ version = "0.3.2"
 dependencies = [
  "anyhow",
  "heck 0.4.0",
+ "itertools",
  "move-idl",
  "serde 1.0.140",
  "serde_json",

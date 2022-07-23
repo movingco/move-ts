@@ -1,6 +1,7 @@
 use super::{Codegen, CodegenContext};
 use crate::{format::gen_doc_string, idl_type::generate_idl_type_with_type_args, CodeText};
 use anyhow::*;
+use itertools::Itertools;
 use move_idl::{IDLStruct, IDLType};
 
 fn generate_struct_fields(s: &IDLStruct, ctx: &CodegenContext) -> Result<CodeText> {
@@ -67,11 +68,13 @@ impl Codegen for IDLStruct {
             generate_struct_fields(self, ctx)?.indent()
         ))
         .docs(
-            &self
-                .doc
-                .as_ref()
-                .map(|d| gen_doc_string(d))
-                .unwrap_or_default(),
+            &[
+                self.doc.clone().unwrap_or_default(),
+                format!("Type name: `{}`", self.name),
+            ]
+            .iter()
+            .filter(|s| !s.is_empty())
+            .join("\n\n"),
         )
         .into())
     }
