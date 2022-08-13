@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["address",""],["character_sets",""],["env",""],["files",""],["parser",""],["testing",""],["types",""],["values",""]]});
+initSidebarItems({"mod":[["address",""],["character_sets",""],["env",""],["files",""],["movey_constants",""],["parser",""],["testing",""],["types",""],["values",""]]});

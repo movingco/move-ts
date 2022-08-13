@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Architecture",""]],"mod":[["compilation",""],["resolution",""],["source_package",""]],"struct":[["BuildConfig",""],["ModelConfig",""]]});
+initSidebarItems({"enum":[["Architecture",""]],"mod":[["compilation",""],["package_hooks",""],["resolution",""],["source_package",""]],"struct":[["BuildConfig",""],["ModelConfig",""]]});

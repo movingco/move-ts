@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["BUILTINS",""],["CONTEXTUAL_KEYWORDS",""],["KEYWORDS",""]]});
+initSidebarItems({"constant":[["BUILTINS",""],["CONTEXTUAL_KEYWORDS",""],["KEYWORDS",""],["PRIMITIVE_TYPES",""]]});
