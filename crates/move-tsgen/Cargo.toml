@@ -20,7 +20,7 @@ async-trait = "0.1.56"
 clap = { version = "3.2", features = ["derive"] }
 json-cli = "0.1.0"
 move-idl = "0.4"
-move-package = { version = "0.2.1", package = "mv-package" }
+move-package = { version = "0.3.1", package = "mv-package" }
 move-ts = { version = "0.4.0", path = "../move-ts" }
 serde_json = "1.0.79"
 static-address = "0.2"
