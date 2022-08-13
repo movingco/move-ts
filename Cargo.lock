@@ -10,14 +10,14 @@ checksum = "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3"
 
 [[package]]
 name = "account-address"
-version = "0.2.0"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b9ab8285426d5c886a6258ee882748f19025db0150621620349a3e2eefc9e0a"
+checksum = "ba5a54059886e9f0e345817ddabb0759a6f9e23e116026b62c91582e73ad617f"
 dependencies = [
  "anyhow",
- "mv-core-types",
+ "mv-core-types 0.3.1",
  "schemars",
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -51,9 +51,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.58"
+version = "1.0.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb07d2053ccdbe10e2af2995a2f116c1330396493dc1269f6a91d0ae82e19704"
+checksum = "508b352bb5c066aac251f6daf6b36eccd03e8a88e8081cd44959ea277a3af9a8"
 
 [[package]]
 name = "arrayvec"
@@ -63,9 +63,9 @@ checksum = "23b62fc65de8e4e7f52534fb52b0f3ed04746ae267519eef2a83941e8085068b"
 
 [[package]]
 name = "async-trait"
-version = "0.1.56"
+version = "0.1.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "96cf8829f67d2eab0b2dfa42c5d0ef737e0724e4a82b01b3e292456202b19716"
+checksum = "76464446b8bc32758d7e88ee1a804d9914cd9b1cb264c029899680b0be29826f"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -95,7 +95,7 @@ version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "510fd83e3eaf7263b06182f3550b4c0af2af42cb36ab8024969ff5ea7fcb2833"
 dependencies = [
- "serde 1.0.140",
+ "serde 1.0.143",
  "thiserror",
 ]
 
@@ -123,9 +123,9 @@ checksum = "8d696c370c750c948ada61c69a0ee2cbbb9c50b1019ddb86d9317157a99c2cae"
 
 [[package]]
 name = "bytes"
-version = "1.2.0"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0b3de4a0c5e67e16066a0715723abd91edc2f9001d09c46e1dca929351e130e"
+checksum = "ec8a7b6a70fde80372154c65702f00a0f56f3e1c36abbc6c440484be248856db"
 
 [[package]]
 name = "cfg-if"
@@ -141,9 +141,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "clap"
-version = "3.2.14"
+version = "3.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54635806b078b7925d6e36810b1755f2a4b5b4d57560432c1ecf60bcbe10602b"
+checksum = "29e724a68d9319343bb3328c9cc2dfde263f4b3142ee1059a9980580171c954b"
 dependencies = [
  "atty",
  "bitflags",
@@ -158,9 +158,9 @@ dependencies = [
 
 [[package]]
 name = "clap_derive"
-version = "3.2.7"
+version = "3.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "759bf187376e1afa7b85b959e6a664a3e7a95203415dba952ad19139e798f902"
+checksum = "13547f7012c01ab4a0e8f8967730ada8f9fdf419e8b6c792788f39cf4e46eefa"
 dependencies = [
  "heck 0.4.0",
  "proc-macro-error",
@@ -194,7 +194,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3362992a0d9f1dd7c3d0e89e0ab2bb540b7a95fea8cd798090e758fda2899b5e"
 dependencies = [
  "codespan-reporting",
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -203,7 +203,7 @@ version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3538270d33cc669650c4b093848450d380def10c331d38c768e34cac80576e6e"
 dependencies = [
- "serde 1.0.140",
+ "serde 1.0.143",
  "termcolor",
  "unicode-width",
 ]
@@ -228,7 +228,7 @@ dependencies = [
  "lazy_static 1.4.0",
  "nom",
  "rust-ini",
- "serde 1.0.140",
+ "serde 1.0.143",
  "serde-hjson",
  "serde_json",
  "toml",
@@ -320,9 +320,9 @@ checksum = "4615dd7b5c2468d6c89432ebe22583879c0ee11bdd929c5ddc5b0d6113b6210d"
 
 [[package]]
 name = "dyn-clone"
-version = "1.0.8"
+version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d07a982d1fb29db01e5a59b1918e03da4df7297eaeee7686ac45542fd4e59c8"
+checksum = "4f94fa09c2aeea5b8839e414b7b841bf429fd25b9c522116ac97ee87856d88b2"
 
 [[package]]
 name = "either"
@@ -332,27 +332,27 @@ checksum = "3f107b87b6afc2a64fd13cac55fe06d6c8859f12d4b14cbcdd2c67d0976781be"
 
 [[package]]
 name = "errmap"
-version = "0.2.0"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a3c9b11241dedcb94972e401c263de16946f4b396897bdfe3721ac63d511020"
+checksum = "63a5510d949822069caa2761deb257909e1bdb5130eef8f45597d2fa4b906949"
 dependencies = [
  "module-id",
- "mv-core-types",
- "serde 1.0.140",
+ "mv-core-types 0.3.1",
+ "serde 1.0.143",
 ]
 
 [[package]]
 name = "errmapgen"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a13595e5651130d1940c676aaf02f3e9e3674d8fee00c7a9886cfb274bc42e2"
+checksum = "ec2c256f385e99839f579f301957bd5bfd451213db9480f834ff53c3d9c0c8c7"
 dependencies = [
  "anyhow",
  "docstring",
  "errmap",
- "mv-core-types",
- "mv-model",
- "serde 1.0.140",
+ "mv-core-types 0.3.1",
+ "mv-model 0.3.1",
+ "serde 1.0.143",
  "static-address",
 ]
 
@@ -379,9 +379,9 @@ checksum = "0ce7134b9999ecaf8bcd65542e436736ef32ddca1b3e06094cb6ec5755203b80"
 
 [[package]]
 name = "generic-array"
-version = "0.14.5"
+version = "0.14.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd48d33ec7f05fbfa152300fdad764757cbded343c1aa1cff2fbaf4134851803"
+checksum = "bff49e947297f3312447abdca79f45f4738097cc82b06e72054d2223f601f1b9"
 dependencies = [
  "typenum",
  "version_check",
@@ -480,9 +480,9 @@ dependencies = [
 
 [[package]]
 name = "itoa"
-version = "1.0.2"
+version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "112c678d4050afce233f4f2852bb2eb519230b3cf12f33585275537d7e41578d"
+checksum = "6c8af84674fe1f223a982c933a0ee1086ac4d4052aa0fb8060c12c6ad838e754"
 
 [[package]]
 name = "json-cli"
@@ -493,7 +493,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "clap",
- "serde 1.0.140",
+ "serde 1.0.143",
  "serde_json",
 ]
 
@@ -530,9 +530,9 @@ dependencies = [
 
 [[package]]
 name = "libc"
-version = "0.2.126"
+version = "0.2.131"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "349d5a591cd28b49e1d1037471617a32ddcda5731b99419008085f72d5a53836"
+checksum = "04c3b4822ccebfa39c02fc03d1534441b22ead323fa0f48bb7ddd8e6ba076a40"
 
 [[package]]
 name = "linked-hash-map"
@@ -588,15 +588,15 @@ dependencies = [
 
 [[package]]
 name = "module-id"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5447e4a38a2376021338c807a76e675b89a753bde09006b6630daf9060c97821"
+checksum = "61e0a0069d18a90e785b54f57e66987d826ff229ea497162829c9d4ada5ec04a"
 dependencies = [
  "account-address",
  "anyhow",
- "mv-core-types",
+ "mv-core-types 0.3.1",
  "schemars",
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -606,8 +606,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b745d939495acf448dd0e29e7e2eff34bcf481fb7e4c3f452d9377f9426a263b"
 dependencies = [
  "anyhow",
- "mv-binary-format",
- "mv-core-types",
+ "mv-binary-format 0.2.1",
+ "mv-core-types 0.2.1",
+ "petgraph 0.5.1",
+ "serde-reflection",
+]
+
+[[package]]
+name = "move-bytecode-utils"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6245a791c51cc594b99285236efd1c602bd4fa6c00c72ba9e7151a80177fe5eb"
+dependencies = [
+ "anyhow",
+ "mv-binary-format 0.3.1",
+ "mv-core-types 0.3.1",
  "petgraph 0.5.1",
  "serde-reflection",
 ]
@@ -619,9 +632,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3dd902476c4bd8844c82377d4577edf5033681f7fb295e736d794afe115f5f0"
 dependencies = [
  "anyhow",
- "mv-binary-format",
- "mv-borrow-graph",
- "mv-core-types",
+ "mv-binary-format 0.2.1",
+ "mv-borrow-graph 0.2.1",
+ "mv-core-types 0.2.1",
+ "petgraph 0.5.1",
+]
+
+[[package]]
+name = "move-bytecode-verifier"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "30ccf7cc3ac1ad4d717dfc79fa311a232872d76b98a28c6d8a1943f37869f291"
+dependencies = [
+ "anyhow",
+ "mv-binary-format 0.3.1",
+ "mv-borrow-graph 0.3.1",
+ "mv-core-types 0.3.1",
  "petgraph 0.5.1",
 ]
 
@@ -634,9 +660,27 @@ dependencies = [
  "anyhow",
  "difference",
  "hex",
- "mv-core-types",
+ "mv-core-types 0.2.1",
  "num-bigint",
- "serde 1.0.140",
+ "serde 1.0.143",
+ "sha2",
+ "walkdir",
+]
+
+[[package]]
+name = "move-command-line-common"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ba4a45f90fce426f57ddca058f7ad49c4fe31e301bf00dcedbd9371759d8954"
+dependencies = [
+ "anyhow",
+ "difference",
+ "dirs-next",
+ "hex",
+ "mv-core-types 0.3.1",
+ "num-bigint",
+ "once_cell",
+ "serde 1.0.143",
  "sha2",
  "walkdir",
 ]
@@ -652,44 +696,65 @@ dependencies = [
  "clap",
  "codespan",
  "colored",
- "move-command-line-common",
- "mv-binary-format",
- "mv-bytecode-source-map",
- "mv-core-types",
- "mv-ir-types",
+ "move-command-line-common 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-bytecode-source-map 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-ir-types 0.2.1",
  "once_cell",
  "petgraph 0.5.1",
- "serde 1.0.140",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "move-coverage"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c21130dfe15e127e3fdffeffda208df21897b3ca9110c6f31204e6ae4a3bd390"
+dependencies = [
+ "anyhow",
+ "bcs",
+ "clap",
+ "codespan",
+ "colored",
+ "move-command-line-common 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-bytecode-source-map 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-ir-types 0.3.1",
+ "once_cell",
+ "petgraph 0.5.1",
+ "serde 1.0.143",
 ]
 
 [[package]]
 name = "move-idl"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d205d7afc464a7f711b9edcc562685320dca5ca346a91e998ecf31c795d1e553"
+checksum = "83b5b6847a09faec8703c977fab602e4c59d164065405c96e0e9cd9767fefb6d"
 dependencies = [
  "anyhow",
  "docstring",
  "errmapgen",
- "move-bytecode-verifier",
+ "move-bytecode-verifier 0.3.1",
  "move-idl-types",
- "mv-binary-format",
- "mv-core-types",
- "mv-model",
- "mv-package",
- "serde 1.0.140",
+ "mv-binary-format 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-model 0.3.1",
+ "mv-package 0.3.1",
+ "serde 1.0.143",
  "struct-tag",
 ]
 
 [[package]]
 name = "move-idl-types"
-version = "0.4.0"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e273167b76a119ee5146955b87ae19801398fa7cb5839f6adf37a0b7ca640aaa"
+checksum = "fafd0daa4e586590bff57613d70a2e86ec9b88336795ee0220c7f3165b9090d5"
 dependencies = [
  "errmap",
  "schemars",
- "serde 1.0.140",
+ "serde 1.0.143",
  "struct-tag",
 ]
 
@@ -702,13 +767,33 @@ dependencies = [
  "anyhow",
  "codespan-reporting",
  "log",
- "move-command-line-common",
- "move-ir-to-bytecode-syntax",
- "move-symbol-pool",
- "mv-binary-format",
- "mv-bytecode-source-map",
- "mv-core-types",
- "mv-ir-types",
+ "move-command-line-common 0.2.1",
+ "move-ir-to-bytecode-syntax 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-bytecode-source-map 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-ir-types 0.2.1",
+ "ouroboros",
+ "thiserror",
+]
+
+[[package]]
+name = "move-ir-to-bytecode"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ff1138c932e23a3865ffc7bf939d39566595b809d82ee9d2c287f9e8794476b"
+dependencies = [
+ "anyhow",
+ "codespan-reporting",
+ "log",
+ "move-command-line-common 0.3.1",
+ "move-ir-to-bytecode-syntax 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-bytecode-source-map 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-ir-types 0.3.1",
  "ouroboros",
  "thiserror",
 ]
@@ -721,10 +806,24 @@ checksum = "d1a40491c9558da47b6676de047a59457d0b2fc837feb13dd7ba85bffc8b85d2"
 dependencies = [
  "anyhow",
  "hex",
- "move-command-line-common",
- "move-symbol-pool",
- "mv-core-types",
- "mv-ir-types",
+ "move-command-line-common 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-ir-types 0.2.1",
+]
+
+[[package]]
+name = "move-ir-to-bytecode-syntax"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bb08cdd69972ae3104ec0c167b869d05c8e8f61f6abb59755e0827b4aa4d438c"
+dependencies = [
+ "anyhow",
+ "hex",
+ "move-command-line-common 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-ir-types 0.3.1",
 ]
 
 [[package]]
@@ -734,7 +833,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e701db9ce78eeecbdce6cb097cb3c1df5d2bd0320854fe1a4ebfa9fcec27910"
 dependencies = [
  "once_cell",
- "serde 1.0.140",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "move-symbol-pool"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "621adf725d37c41b42a48e2e4e21c418ac286b8fcbbdf888b088253c730a6242"
+dependencies = [
+ "once_cell",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -745,7 +854,7 @@ dependencies = [
  "heck 0.4.0",
  "itertools",
  "move-idl",
- "serde 1.0.140",
+ "serde 1.0.143",
  "serde_json",
  "static-address",
 ]
@@ -760,7 +869,7 @@ dependencies = [
  "json-cli",
  "move-idl",
  "move-ts",
- "mv-package",
+ "mv-package 0.2.1",
  "serde_json",
  "static-address",
  "tokio",
@@ -776,11 +885,29 @@ dependencies = [
  "bcs",
  "heck 0.3.3",
  "log",
- "move-bytecode-verifier",
- "move-command-line-common",
- "mv-core-types",
- "mv-model",
- "serde 1.0.140",
+ "move-bytecode-verifier 0.2.1",
+ "move-command-line-common 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-model 0.2.1",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "mv-abigen"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e36b008593fb57a7ab86350e9e8a2b8da228b31cb378c2377db5714d240cfb99"
+dependencies = [
+ "anyhow",
+ "bcs",
+ "heck 0.3.3",
+ "log",
+ "move-bytecode-verifier 0.3.1",
+ "move-command-line-common 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-model 0.3.1",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -790,10 +917,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "54924534b9c0668c66f9ec92da953fad1d04ed45d24bfcce6cdab4d475f0615c"
 dependencies = [
  "anyhow",
- "mv-core-types",
+ "mv-core-types 0.2.1",
  "once_cell",
  "ref-cast",
- "serde 1.0.140",
+ "serde 1.0.143",
+ "variant_count",
+]
+
+[[package]]
+name = "mv-binary-format"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ecd56d316e1d5eb752cee40f9477e2d9bf699afafe6151181a6244c77b7784c"
+dependencies = [
+ "anyhow",
+ "mv-core-types 0.3.1",
+ "once_cell",
+ "ref-cast",
+ "serde 1.0.143",
  "variant_count",
 ]
 
@@ -804,6 +945,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b3405d0297832218b4b1430d3b5e7b9812a4cc05001394c76d61b8654ebcdcd"
 
 [[package]]
+name = "mv-borrow-graph"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9735379f64426cd0a623333a35201d19a27141d012fcff84ab92777b55ad559c"
+
+[[package]]
 name = "mv-bytecode-source-map"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -811,12 +958,28 @@ checksum = "6bb2bd5cd2d698a5decd9d3a49c60c70f596b1e8a0f24afa415ab292aef7cf15"
 dependencies = [
  "anyhow",
  "bcs",
- "move-command-line-common",
- "move-symbol-pool",
- "mv-binary-format",
- "mv-core-types",
- "mv-ir-types",
- "serde 1.0.140",
+ "move-command-line-common 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-ir-types 0.2.1",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "mv-bytecode-source-map"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c77af5fdbdbfe784d3e178402d2a4680047354589d85857ecb5f5238bc99c7dc"
+dependencies = [
+ "anyhow",
+ "bcs",
+ "move-command-line-common 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-ir-types 0.3.1",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -831,15 +994,45 @@ dependencies = [
  "codespan-reporting",
  "difference",
  "hex",
- "move-bytecode-verifier",
- "move-command-line-common",
- "move-ir-to-bytecode",
- "move-symbol-pool",
- "mv-binary-format",
- "mv-borrow-graph",
- "mv-bytecode-source-map",
- "mv-core-types",
- "mv-ir-types",
+ "move-bytecode-verifier 0.2.1",
+ "move-command-line-common 0.2.1",
+ "move-ir-to-bytecode 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-borrow-graph 0.2.1",
+ "mv-bytecode-source-map 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-ir-types 0.2.1",
+ "num-bigint",
+ "once_cell",
+ "petgraph 0.5.1",
+ "regex",
+ "sha3",
+ "tempfile",
+ "walkdir",
+]
+
+[[package]]
+name = "mv-compiler"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7a09edf0c81285b0e7b7ecc64443fe0eb821e2deddc6abc44d335a3c10ed296d"
+dependencies = [
+ "anyhow",
+ "bcs",
+ "clap",
+ "codespan-reporting",
+ "difference",
+ "hex",
+ "move-bytecode-verifier 0.3.1",
+ "move-command-line-common 0.3.1",
+ "move-ir-to-bytecode 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-borrow-graph 0.3.1",
+ "mv-bytecode-source-map 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-ir-types 0.3.1",
  "num-bigint",
  "once_cell",
  "petgraph 0.5.1",
@@ -861,7 +1054,23 @@ dependencies = [
  "once_cell",
  "rand",
  "ref-cast",
- "serde 1.0.140",
+ "serde 1.0.143",
+ "serde_bytes",
+]
+
+[[package]]
+name = "mv-core-types"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ba51594abe7d4793c4f3831353737e8b1960c8ff1c095b4fd355ddb286072ef4"
+dependencies = [
+ "anyhow",
+ "bcs",
+ "hex",
+ "once_cell",
+ "rand",
+ "ref-cast",
+ "serde 1.0.143",
  "serde_bytes",
 ]
 
@@ -874,14 +1083,33 @@ dependencies = [
  "anyhow",
  "clap",
  "colored",
- "move-bytecode-verifier",
- "move-command-line-common",
- "move-coverage",
- "mv-binary-format",
- "mv-bytecode-source-map",
- "mv-compiler",
- "mv-core-types",
- "mv-ir-types",
+ "move-bytecode-verifier 0.2.1",
+ "move-command-line-common 0.2.1",
+ "move-coverage 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-bytecode-source-map 0.2.1",
+ "mv-compiler 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-ir-types 0.2.1",
+]
+
+[[package]]
+name = "mv-disassembler"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4edc2bbe8d556ef306f48a6308d1475f916f948319267930c5bf7b8216650bcb"
+dependencies = [
+ "anyhow",
+ "clap",
+ "colored",
+ "move-bytecode-verifier 0.3.1",
+ "move-command-line-common 0.3.1",
+ "move-coverage 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-bytecode-source-map 0.3.1",
+ "mv-compiler 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-ir-types 0.3.1",
 ]
 
 [[package]]
@@ -895,12 +1123,31 @@ dependencies = [
  "codespan-reporting",
  "itertools",
  "log",
- "mv-compiler",
- "mv-model",
+ "mv-compiler 0.2.1",
+ "mv-model 0.2.1",
  "num",
  "once_cell",
  "regex",
- "serde 1.0.140",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "mv-docgen"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bf2b70b10846d95b85a071cf3056f5ab182f63112eb1fb87a5e27fd599d89dc3"
+dependencies = [
+ "anyhow",
+ "codespan",
+ "codespan-reporting",
+ "itertools",
+ "log",
+ "mv-compiler 0.3.1",
+ "mv-model 0.3.1",
+ "num",
+ "once_cell",
+ "regex",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -911,11 +1158,26 @@ checksum = "2499f6dd649ae123aa25738f1abdac8f1471930de5ae1f514768b6435ad779af"
 dependencies = [
  "anyhow",
  "hex",
- "move-command-line-common",
- "move-symbol-pool",
- "mv-core-types",
+ "move-command-line-common 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-core-types 0.2.1",
  "once_cell",
- "serde 1.0.140",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "mv-ir-types"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "128b955fb7ab2663f76778b3e198115a50134c06e5bbbc837e01ebb3c92ddad9"
+dependencies = [
+ "anyhow",
+ "hex",
+ "move-command-line-common 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-core-types 0.3.1",
+ "once_cell",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -930,19 +1192,46 @@ dependencies = [
  "internment",
  "itertools",
  "log",
- "move-bytecode-verifier",
- "move-command-line-common",
- "move-symbol-pool",
- "mv-binary-format",
- "mv-bytecode-source-map",
- "mv-compiler",
- "mv-core-types",
- "mv-disassembler",
- "mv-ir-types",
+ "move-bytecode-verifier 0.2.1",
+ "move-command-line-common 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-bytecode-source-map 0.2.1",
+ "mv-compiler 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-disassembler 0.2.1",
+ "mv-ir-types 0.2.1",
  "num",
  "once_cell",
  "regex",
- "serde 1.0.140",
+ "serde 1.0.143",
+]
+
+[[package]]
+name = "mv-model"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f7a073e364eb6b725619a78dc392fa5ca561e4d78f3e1765ec75085b3600c4b"
+dependencies = [
+ "anyhow",
+ "codespan",
+ "codespan-reporting",
+ "internment",
+ "itertools",
+ "log",
+ "move-bytecode-verifier 0.3.1",
+ "move-command-line-common 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-bytecode-source-map 0.3.1",
+ "mv-compiler 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-disassembler 0.3.1",
+ "mv-ir-types 0.3.1",
+ "num",
+ "once_cell",
+ "regex",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -956,22 +1245,56 @@ dependencies = [
  "clap",
  "colored",
  "dirs-next",
- "move-bytecode-utils",
- "move-command-line-common",
- "move-symbol-pool",
- "mv-abigen",
- "mv-binary-format",
- "mv-bytecode-source-map",
- "mv-compiler",
- "mv-core-types",
- "mv-docgen",
- "mv-model",
+ "move-bytecode-utils 0.2.1",
+ "move-command-line-common 0.2.1",
+ "move-symbol-pool 0.2.1",
+ "mv-abigen 0.2.1",
+ "mv-binary-format 0.2.1",
+ "mv-bytecode-source-map 0.2.1",
+ "mv-compiler 0.2.1",
+ "mv-core-types 0.2.1",
+ "mv-docgen 0.2.1",
+ "mv-model 0.2.1",
  "named-lock",
  "once_cell",
  "petgraph 0.5.1",
  "ptree",
  "regex",
- "serde 1.0.140",
+ "serde 1.0.143",
+ "serde_yaml",
+ "sha2",
+ "tempfile",
+ "toml",
+ "walkdir",
+]
+
+[[package]]
+name = "mv-package"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4786bf00688bd80dcd069d080e146002c33ab5261160b0bee886554fbbb59462"
+dependencies = [
+ "anyhow",
+ "bcs",
+ "clap",
+ "colored",
+ "dirs-next",
+ "move-bytecode-utils 0.3.1",
+ "move-command-line-common 0.3.1",
+ "move-symbol-pool 0.3.1",
+ "mv-abigen 0.3.1",
+ "mv-binary-format 0.3.1",
+ "mv-bytecode-source-map 0.3.1",
+ "mv-compiler 0.3.1",
+ "mv-core-types 0.3.1",
+ "mv-docgen 0.3.1",
+ "mv-model 0.3.1",
+ "named-lock",
+ "once_cell",
+ "petgraph 0.5.1",
+ "ptree",
+ "regex",
+ "serde 1.0.143",
  "serde_yaml",
  "sha2",
  "tempfile",
@@ -1191,7 +1514,7 @@ checksum = "09a279cbf25cb0757810394fbc1e359949b59e348145c643a939a525692e6929"
 dependencies = [
  "cfg-if 1.0.0",
  "libc",
- "redox_syscall 0.2.15",
+ "redox_syscall 0.2.16",
  "smallvec",
  "windows-sys",
 ]
@@ -1254,9 +1577,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.40"
+version = "1.0.43"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd96a1e8ed2596c337f8eae5f24924ec83f5ad5ab21ea8e455d3566c69fbcaf7"
+checksum = "0a2ca2c61bc9f3d74d2886294ab7b9853abd9c1ad903a3ac7815c58989bb7bab"
 dependencies = [
  "unicode-ident",
 ]
@@ -1272,16 +1595,16 @@ dependencies = [
  "config",
  "directories",
  "petgraph 0.6.2",
- "serde 1.0.140",
+ "serde 1.0.143",
  "serde-value",
  "tint",
 ]
 
 [[package]]
 name = "quote"
-version = "1.0.20"
+version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bcdf212e9776fbcb2d23ab029360416bb1706b1aea2d1a5ba002727cbcab804"
+checksum = "bbe448f377a7d6961e30f5955f9b8d106c3f5e449d493ee1b125c1d43c2b5179"
 dependencies = [
  "proc-macro2",
 ]
@@ -1324,9 +1647,9 @@ checksum = "41cc0f7e4d5d4544e8861606a285bb08d3e70712ccc7d2b84d7c0ccfaf4b05ce"
 
 [[package]]
 name = "redox_syscall"
-version = "0.2.15"
+version = "0.2.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "534cfe58d6a18cc17120fbf4635d53d14691c1fe4d951064df9bd326178d7d5a"
+checksum = "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a"
 dependencies = [
  "bitflags",
 ]
@@ -1338,24 +1661,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b033d837a7cf162d7993aded9304e30a83213c648b6e389db233191f891e5c2b"
 dependencies = [
  "getrandom",
- "redox_syscall 0.2.15",
+ "redox_syscall 0.2.16",
  "thiserror",
 ]
 
 [[package]]
 name = "ref-cast"
-version = "1.0.8"
+version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "776c8940430cf563f66a93f9111d1cd39306dc6c68149ecc6b934742a44a828a"
+checksum = "ed13bcd201494ab44900a96490291651d200730904221832b9547d24a87d332b"
 dependencies = [
  "ref-cast-impl",
 ]
 
 [[package]]
 name = "ref-cast-impl"
-version = "1.0.8"
+version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f26c4704460286103bff62ea1fb78d137febc86aaf76952e6c5a2249af01f54"
+checksum = "5234cd6063258a5e32903b53b1b6ac043a0541c8adc1f610f67b0326c7a578fa"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1396,9 +1719,9 @@ checksum = "3e52c148ef37f8c375d49d5a73aa70713125b7f19095948a923f80afdeb22ec2"
 
 [[package]]
 name = "ryu"
-version = "1.0.10"
+version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3f6f92acf49d1b98f7a81226834412ada05458b7364277387724a237f062695"
+checksum = "4501abdff3ae82a1c1b477a17252eb69cee9e66eb915c1abaa4f44d873df9f09"
 
 [[package]]
 name = "same-file"
@@ -1417,7 +1740,7 @@ checksum = "1847b767a3d62d95cbf3d8a9f0e421cf57a0d8aa4f411d4b16525afb0284d4ed"
 dependencies = [
  "dyn-clone",
  "schemars_derive",
- "serde 1.0.140",
+ "serde 1.0.143",
  "serde_json",
 ]
 
@@ -1447,9 +1770,9 @@ checksum = "9dad3f759919b92c3068c696c15c3d17238234498bbdcc80f2c469606f948ac8"
 
 [[package]]
 name = "serde"
-version = "1.0.140"
+version = "1.0.143"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc855a42c7967b7c369eb5860f7164ef1f6f81c20c7cc1141f2a604e18723b03"
+checksum = "53e8e5d5b70924f74ff5c6d64d9a5acd91422117c60f48c4e07855238a254553"
 dependencies = [
  "serde_derive",
 ]
@@ -1473,7 +1796,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f05a5f801ac62a51a49d378fdb3884480041b99aced450b28990673e8ff99895"
 dependencies = [
  "once_cell",
- "serde 1.0.140",
+ "serde 1.0.143",
  "thiserror",
 ]
 
@@ -1484,23 +1807,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f3a1a3341211875ef120e117ea7fd5228530ae7e7036a779fdc9117be6b3282c"
 dependencies = [
  "ordered-float",
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
 name = "serde_bytes"
-version = "0.11.6"
+version = "0.11.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "212e73464ebcde48d723aa02eb270ba62eff38a9b732df31f33f1b4e145f3a54"
+checksum = "cfc50e8183eeeb6178dcb167ae34a8051d63535023ae38b5d8d12beae193d37b"
 dependencies = [
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.140"
+version = "1.0.143"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f2122636b9fe3b81f1cb25099fcf2d3f542cdb1d45940d56c713158884a05da"
+checksum = "d3d8e8de557aee63c26b85b947f5e59b690d0454c753f3adeb5cd7835ab88391"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1520,13 +1843,13 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.82"
+version = "1.0.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "82c2c1fdcd807d1098552c5b9a36e425e42e9fbd7c6a37a8425f390f781f7fa7"
+checksum = "38dd04e3c8279e75b31ef29dbdceebfe5ad89f4d0937213c53f7d49d01b3d5a7"
 dependencies = [
  "itoa",
  "ryu",
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -1537,7 +1860,7 @@ checksum = "578a7433b776b56a35785ed5ce9a7e777ac0598aac5a6dd1b4b18a307c7fc71b"
 dependencies = [
  "indexmap",
  "ryu",
- "serde 1.0.140",
+ "serde 1.0.143",
  "yaml-rust",
 ]
 
@@ -1643,22 +1966,22 @@ checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
 
 [[package]]
 name = "struct-tag"
-version = "0.2.0"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "432abc99f832db54abaadd88651509c1a06297b65f55f98e564c82c367f13fae"
+checksum = "ed6cc7ec277f2c026cef6bdfcb740afa8ec19f4f58209347bdeca44847e4a9e7"
 dependencies = [
  "anyhow",
  "module-id",
- "mv-core-types",
+ "mv-core-types 0.3.1",
  "schemars",
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
 name = "syn"
-version = "1.0.98"
+version = "1.0.99"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c50aef8a904de4c23c788f104b7dddc7d6f79c647c7c8ce4cc8f73eb0ca773dd"
+checksum = "58dbef6ec655055e20b86b15a8cc6d439cca19b667537ac6a1369572d151ab13"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1674,7 +1997,7 @@ dependencies = [
  "cfg-if 1.0.0",
  "fastrand",
  "libc",
- "redox_syscall 0.2.15",
+ "redox_syscall 0.2.16",
  "remove_dir_all",
  "winapi",
 ]
@@ -1696,18 +2019,18 @@ checksum = "b1141d4d61095b28419e22cb0bbf02755f5e54e0526f97f1e3d1d160e60885fb"
 
 [[package]]
 name = "thiserror"
-version = "1.0.31"
+version = "1.0.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd829fe32373d27f76265620b5309d0340cb8550f523c1dda251d6298069069a"
+checksum = "f5f6586b7f764adc0231f4c79be7b920e766bb2f3e51b3661cdb263828f19994"
 dependencies = [
  "thiserror-impl",
 ]
 
 [[package]]
 name = "thiserror-impl"
-version = "1.0.31"
+version = "1.0.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0396bc89e626244658bef819e22d0cc459e795a5ebe878e6ec336d1674a8d79a"
+checksum = "12bafc5b54507e0149cdf1b145a5d80ab80a90bcd9275df43d4fff68460f6c21"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1725,9 +2048,9 @@ dependencies = [
 
 [[package]]
 name = "tokio"
-version = "1.20.0"
+version = "1.20.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57aec3cfa4c296db7255446efb4928a6be304b431a806216105542a67b6ca82e"
+checksum = "7a8325f63a7d4774dd041e363b2409ed1c5cbbd0f867795e661df066b2b0a581"
 dependencies = [
  "autocfg",
  "bytes",
@@ -1761,7 +2084,7 @@ version = "0.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d82e1a7758622a465f8cee077614c73484dac5b836c02ff6a40d5d1010324d7"
 dependencies = [
- "serde 1.0.140",
+ "serde 1.0.143",
 ]
 
 [[package]]
@@ -1772,9 +2095,9 @@ checksum = "dcf81ac59edc17cc8697ff311e8f5ef2d99fcbd9817b34cec66f90b6c3dfd987"
 
 [[package]]
 name = "unicode-ident"
-version = "1.0.2"
+version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "15c61ba63f9235225a22310255a29b806b907c9b8c964bcbd0a2c70f3f2deea7"
+checksum = "c4f5b37a154999a8f3f98cc23a628d850e154479cd94decf3414696e12e31aaf"
 
 [[package]]
 name = "unicode-segmentation"
