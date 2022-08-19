@@ -15,7 +15,7 @@ address20 = ["move-idl/address20"]
 address32 = ["move-idl/address32"]
 
 [dependencies]
-anyhow = "1.0.42"
+anyhow = "1.0.62"
 itertools = "0.10"
 serde = { version = "1.0.138", features = ["derive"] }
 serde_json = "1.0.79"
