@@ -392,9 +392,9 @@ dependencies = [
 
 [[package]]
 name = "errmapgen"
-version = "0.4.2"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec2c256f385e99839f579f301957bd5bfd451213db9480f834ff53c3d9c0c8c7"
+checksum = "e3780fc22d2295dea49cf9ead322cd5b7d9a51c23ec30481f29ce93e671c4731"
 dependencies = [
  "anyhow",
  "docstring",
