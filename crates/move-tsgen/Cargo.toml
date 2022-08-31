@@ -15,7 +15,7 @@ address20 = ["move-idl/address20", "move-ts/address20"]
 address32 = ["move-idl/address32", "move-ts/address32"]
 
 [dependencies]
-anyhow = "1.0.42"
+anyhow = "1.0.63"
 async-trait = "0.1.56"
 clap = { version = "3.2", features = ["derive"] }
 json-cli = "0.1.0"
