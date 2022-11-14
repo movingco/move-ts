@@ -165,14 +165,14 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "clap"
-version = "3.2.17"
+version = "3.2.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "29e724a68d9319343bb3328c9cc2dfde263f4b3142ee1059a9980580171c954b"
+checksum = "71655c45cb9845d3270c9d6df84ebe72b4dad3c2ba3f7023ad47c144e4e473a5"
 dependencies = [
  "atty",
  "bitflags",
- "clap_derive",
- "clap_lex",
+ "clap_derive 3.2.18",
+ "clap_lex 0.2.4",
  "indexmap",
  "once_cell",
  "strsim",
@@ -181,10 +181,38 @@ dependencies = [
 ]
 
 [[package]]
-name = "clap_derive"
-version = "3.2.17"
+name = "clap"
+version = "4.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13547f7012c01ab4a0e8f8967730ada8f9fdf419e8b6c792788f39cf4e46eefa"
+checksum = "0eb41c13df48950b20eb4cd0eefa618819469df1bffc49d11e8487c4ba0037e5"
+dependencies = [
+ "atty",
+ "bitflags",
+ "clap_derive 4.0.21",
+ "clap_lex 0.3.0",
+ "once_cell",
+ "strsim",
+ "termcolor",
+]
+
+[[package]]
+name = "clap_derive"
+version = "3.2.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ea0c8bce528c4be4da13ea6fead8965e95b6073585a2f05204bd8f4119f82a65"
+dependencies = [
+ "heck 0.4.0",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "clap_derive"
+version = "4.0.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0177313f9f02afc995627906bbd8967e2be069f5261954222dac78290c2b9014"
 dependencies = [
  "heck 0.4.0",
  "proc-macro-error",
@@ -198,6 +226,15 @@ name = "clap_lex"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2850f2f5a82cbf437dd5af4d49848fbdfc27c157c3d010345776f952765261c5"
+dependencies = [
+ "os_str_bytes",
+]
+
+[[package]]
+name = "clap_lex"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0d4198f73e42b4936b35b5bb248d81d2b595ecb170da0bac7655c54eedfa8da8"
 dependencies = [
  "os_str_bytes",
 ]
@@ -767,7 +804,7 @@ checksum = "ee6d2a65ae5665a3b639dd9e0e43ee40ae3fe54e3f3a5bcb6b753e55dff86cdf"
 dependencies = [
  "anyhow",
  "async-trait",
- "clap",
+ "clap 3.2.23",
  "serde 1.0.144",
  "serde_json",
 ]
@@ -989,7 +1026,7 @@ checksum = "299862181afb1f4b84915f565be16b305007baf28afd399c2d22d8a212606f71"
 dependencies = [
  "anyhow",
  "bcs",
- "clap",
+ "clap 3.2.23",
  "codespan",
  "colored",
  "move-command-line-common",
@@ -1096,7 +1133,7 @@ version = "0.4.1"
 dependencies = [
  "anyhow",
  "async-trait",
- "clap",
+ "clap 4.0.23",
  "json-cli",
  "move-idl",
  "move-ts",
@@ -1168,7 +1205,7 @@ checksum = "7a80be0907d03509b500964085479c39e2085b85073dfae372f30f476688e3e4"
 dependencies = [
  "anyhow",
  "bcs",
- "clap",
+ "clap 3.2.23",
  "codespan-reporting",
  "difference",
  "hex",
@@ -1213,7 +1250,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3122a46c630a2ea49ccee85d8153934307d839bbffb5c935ce4066c2317cc816"
 dependencies = [
  "anyhow",
- "clap",
+ "clap 3.2.23",
  "colored",
  "move-bytecode-verifier",
  "move-command-line-common",
@@ -1294,7 +1331,7 @@ checksum = "dd0b66eb7c92618eacf59ca7c1b375e2d5805ccd56db8b7fb3aa94a6c17e19b2"
 dependencies = [
  "anyhow",
  "bcs",
- "clap",
+ "clap 3.2.23",
  "colored",
  "dirs-next",
  "move-bytecode-utils",
@@ -2252,9 +2289,9 @@ dependencies = [
 
 [[package]]
 name = "textwrap"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1141d4d61095b28419e22cb0bbf02755f5e54e0526f97f1e3d1d160e60885fb"
+checksum = "222a222a5bfe1bba4a77b45ec488a741b3cb8872e5e499451fd7d0129c9c7c3d"
 
 [[package]]
 name = "thiserror"
